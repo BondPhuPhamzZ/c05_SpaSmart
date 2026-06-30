@@ -17,7 +17,6 @@ namespace c05_SpaSmart.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            // UC02: Khách hàng xem thông tin dịch vụ Spa
             var services = await _context.GoiDichVus.ToListAsync();
             return View(services);
         }

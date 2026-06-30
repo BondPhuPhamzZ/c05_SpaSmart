@@ -42,7 +42,6 @@ namespace c05_SpaSmart.Controllers
                 
                 if (user != null && _securityService.VerifyPassword(model.Password, user.PasswordHash))
                 {
-                    // Tạo Cookie Auth
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, user.Username),
@@ -55,10 +54,9 @@ namespace c05_SpaSmart.Controllers
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
-                    // Redirect dựa trên Role
                     if (user.Role == UserRole.Admin)
                     {
-                        return Redirect("/Admin/LichHen"); // Razor Page của Admin
+                        return Redirect("/Admin/LichHen"); 
                     }
 
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
@@ -86,7 +84,6 @@ namespace c05_SpaSmart.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Kiểm tra trùng username
                 var exists = await _context.Users.AnyAsync(u => u.Username == model.Username);
                 if (exists)
                 {

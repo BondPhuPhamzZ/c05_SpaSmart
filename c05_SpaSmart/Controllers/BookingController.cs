@@ -25,7 +25,6 @@ namespace c05_SpaSmart.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            // Xem lịch sử đặt lịch
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
             var history = await _context.LichHens
                 .Include(l => l.KyThuatVien)
@@ -43,7 +42,6 @@ namespace c05_SpaSmart.Controllers
         {
             ViewBag.Services = await _context.GoiDichVus.ToListAsync();
             
-            // Lấy danh sách KTV (Tất cả, hoặc chỉ những người sẵn sàng. Ở đây load tất cả để khách chọn yêu thích)
             ViewBag.KTVs = await _context.KyThuatViens.ToListAsync();
 
             var model = new BookingViewModel();
@@ -66,10 +64,8 @@ namespace c05_SpaSmart.Controllers
 
             if (ModelState.IsValid)
             {
-                // Quy định QĐ01: Kiểm tra trùng lịch KTV
                 if (model.KyThuatVienId.HasValue)
                 {
-                    // Lấy các lịch hẹn Đã xác nhận hoặc Đang phục vụ của KTV này
                     var conflictingAppointments = await _context.LichHens
                         .Where(l => l.KyThuatVienId == model.KyThuatVienId.Value
                                  && (l.TrangThai == TrangThaiLichHen.DaXacNhan || l.TrangThai == TrangThaiLichHen.DangPhucVu))
@@ -77,7 +73,6 @@ namespace c05_SpaSmart.Controllers
 
                     foreach(var app in conflictingAppointments)
                     {
-                        // Kiểm tra khoảng thời gian (+- 90 phút mặc định)
                         if (Math.Abs((app.NgayGioDat - model.NgayGioDat).TotalMinutes) < 90)
                         {
                             ModelState.AddModelError("KyThuatVienId", "KTV bạn chọn đã kín lịch vào giờ này. Vui lòng chọn KTV khác hoặc đổi giờ.");
@@ -89,7 +84,7 @@ namespace c05_SpaSmart.Controllers
                 }
                 else
                 {
-                    // Hệ thống sẽ tự random KTV rảnh khi Admin duyệt (trong backend admin đã có chức năng này)
+                    // Hệ thống random KTV có lịch rảnh
                 }
 
                 var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
@@ -105,7 +100,7 @@ namespace c05_SpaSmart.Controllers
                 };
 
                 _context.LichHens.Add(lichHen);
-                await _context.SaveChangesAsync(); // Lưu để có Id
+                await _context.SaveChangesAsync(); 
 
                 decimal total = 0;
 
@@ -126,7 +121,7 @@ namespace c05_SpaSmart.Controllers
                 }
 
                 lichHen.TongTien = total;
-                lichHen.TongThanhToan = total; // Tạm tính bằng tổng tiền, ưu đãi tính sau
+                lichHen.TongThanhToan = total; // Ưu đãi tính sau
                 await _context.SaveChangesAsync();
 
                 TempData["SuccessMessage"] = "Đặt lịch thành công! Lễ tân sẽ sớm liên hệ xác nhận.";
