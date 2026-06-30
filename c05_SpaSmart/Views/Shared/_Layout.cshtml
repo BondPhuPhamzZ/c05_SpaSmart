@@ -22,19 +22,19 @@
             border-color: var(--bs-primary);
             color: #fff;
         }
-        .btn-primary:hover {
-            background-color: #1aa179;
-            border-color: #1aa179;
-            color: #fff;
+        .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+            background-color: #1aa179 !important;
+            border-color: #1aa179 !important;
+            color: #fff !important;
         }
         .btn-outline-primary {
             color: var(--bs-primary);
             border-color: var(--bs-primary);
         }
-        .btn-outline-primary:hover {
-            background-color: var(--bs-primary);
-            border-color: var(--bs-primary);
-            color: #fff;
+        .btn-outline-primary:hover, .btn-outline-primary:active, .btn-outline-primary:focus {
+            background-color: var(--bs-primary) !important;
+            border-color: var(--bs-primary) !important;
+            color: #fff !important;
         }
         .badge.bg-primary {
             background-color: var(--bs-primary) !important;
@@ -44,6 +44,15 @@
         }
         .bg-primary-teal {
             background-color: var(--bs-primary) !important;
+        }
+        /* Custom Input Focus and Checkbox */
+        .form-control:focus, .form-select:focus {
+            border-color: var(--bs-primary);
+            box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+        }
+        .form-check-input:checked {
+            background-color: var(--bs-primary);
+            border-color: var(--bs-primary);
         }
         .navbar {
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -60,13 +69,13 @@
     </style>
 </head>
 <body>
-    <header>
+    <header class="sticky-top shadow-sm">
         <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
             <div class="container">
                 <a class="navbar-brand fw-bold text-primary-teal fs-3" asp-area="" asp-controller="Home" asp-action="Index">
                     <i class="fas fa-leaf"></i> SpaSmart
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-toggle="target="#navbarNav">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -88,7 +97,7 @@
                         @if (User.Identity!.IsAuthenticated)
                         {
                             <span class="me-3 fw-medium">Xin chào, @User.Identity.Name!</span>
-                            <a asp-controller="Auth" asp-action="Logout" class="btn btn-outline-danger btn-sm rounded-pill px-3">Đăng xuất</a>
+                            <a asp-controller="Auth" asp-action="Logout" class="btn btn-outline-primary btn-sm rounded-pill px-3">Đăng xuất</a>
                         }
                         else
                         {

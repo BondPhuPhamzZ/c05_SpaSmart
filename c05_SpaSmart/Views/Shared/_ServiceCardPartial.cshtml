@@ -6,11 +6,11 @@
         <h4 class="card-title fw-bold">@Model.TenDichVu</h4>
         <p class="card-text text-muted mb-4">@Model.MoTa</p>
         <div class="d-flex justify-content-between align-items-center mt-auto">
-            <span class="fs-5 fw-bold text-danger">@Model.GiaTien.ToString("N0")đ</span>
+            <span class="fs-5 fw-bold text-primary-teal">@Model.GiaTien.ToString("N0")đ</span>
             <span class="badge bg-primary text-white"><i class="far fa-clock me-1"></i> @Model.ThoiLuongPhut phút</span>
         </div>
     </div>
     <div class="card-footer bg-white border-0 p-4 pt-0">
-        <a asp-controller="Booking" asp-action="Create" class="btn btn-outline-primary w-100 rounded-pill fw-bold">Đặt lịch dịch vụ này</a>
+        <a asp-controller="Booking" asp-action="Create" asp-route-serviceId="@Model.Id" class="btn btn-outline-primary w-100 rounded-pill fw-bold">Đặt lịch dịch vụ này</a>
     </div>
 </div>

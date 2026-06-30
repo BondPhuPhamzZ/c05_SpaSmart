@@ -38,13 +38,18 @@ namespace c05_SpaSmart.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(int? serviceId)
         {
             ViewBag.Services = await _context.GoiDichVus.ToListAsync();
             
+            // Lấy danh sách KTV (Tất cả, hoặc chỉ những người sẵn sàng. Ở đây load tất cả để khách chọn yêu thích)
             ViewBag.KTVs = await _context.KyThuatViens.ToListAsync();
 
             var model = new BookingViewModel();
+            if (serviceId.HasValue)
+            {
+                model.DichVuIds.Add(serviceId.Value);
+            }
             return View(model);
         }
 
