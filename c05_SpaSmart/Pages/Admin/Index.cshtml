@@ -1,0 +1,32 @@
+@page
+@model c05_SpaSmart.Pages.Admin.IndexModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container mt-4">
+    <h1 class="text-primary">Admin Dashboard</h1>
+    <p>Chào mừng quản trị viên SpaSmart. Đây là khu vực quản lý bằng Razor Pages.</p>
+
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Gói Dịch Vụ</h5>
+                    <p class="card-text">Quản lý các dịch vụ Spa</p>
+                    <a href="#" class="btn btn-light btn-sm">Xem chi tiết</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Lịch Hẹn</h5>
+                    <p class="card-text">Duyệt và lập hóa đơn</p>
+                    <a href="#" class="btn btn-light btn-sm">Xem chi tiết</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
