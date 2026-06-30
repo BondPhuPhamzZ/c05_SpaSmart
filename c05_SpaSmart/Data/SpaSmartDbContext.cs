@@ -20,7 +20,7 @@ namespace c05_SpaSmart.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Cấu hình Khóa chính kép cho ChiTietLichHen
+            // Bảng trung gian
             modelBuilder.Entity<ChiTietLichHen>()
                 .HasKey(c => new { c.LichHenId, c.DichVuId });
 
@@ -36,7 +36,7 @@ namespace c05_SpaSmart.Data
                 .HasForeignKey(c => c.DichVuId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Cấu hình Khóa chính kép cho DanhMucPhuLieu
+            // Bảng trung gian
             modelBuilder.Entity<DanhMucPhuLieu>()
                 .HasKey(d => new { d.DichVuId, d.PhuLieuId });
 

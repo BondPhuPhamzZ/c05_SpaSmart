@@ -15,10 +15,9 @@ namespace c05_SpaSmart.Data
             {
                 var context = serviceScope.ServiceProvider.GetService<SpaSmartDbContext>();
                 
-                // Tự động tạo DB nếu chưa có
                 context.Database.EnsureCreated();
 
-                // Seed Users
+                // Users role
                 if (!context.Users.Any())
                 {
                     context.Users.AddRange(new User[]
@@ -45,7 +44,7 @@ namespace c05_SpaSmart.Data
                     context.SaveChanges();
                 }
 
-                // Seed Kỹ Thuật Viên
+                // Kỹ thuật viên
                 if (!context.KyThuatViens.Any())
                 {
                     context.KyThuatViens.AddRange(new KyThuatVien[]
@@ -66,7 +65,7 @@ namespace c05_SpaSmart.Data
                     context.SaveChanges();
                 }
 
-                // Seed Phụ liệu
+                // Phụ liệu
                 if (!context.PhuLieus.Any())
                 {
                     context.PhuLieus.AddRange(new PhuLieu[]
@@ -89,7 +88,7 @@ namespace c05_SpaSmart.Data
                     context.SaveChanges();
                 }
 
-                // Seed Gói dịch vụ
+                // Gói dịch vụ
                 if (!context.GoiDichVus.Any())
                 {
                     context.GoiDichVus.AddRange(new GoiDichVu[]
@@ -112,7 +111,7 @@ namespace c05_SpaSmart.Data
                     context.SaveChanges();
                 }
 
-                // Seed Danh Mục Phụ Liệu (Mapping)
+                // Danh mục phụ liệu (mapping)
                 if (!context.DanhMucPhuLieus.Any())
                 {
                     var massageDichVu = context.GoiDichVus.FirstOrDefault(d => d.TenDichVu.Contains("Massage Body"));
