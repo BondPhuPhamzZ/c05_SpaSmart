@@ -41,7 +41,7 @@ namespace c05_SpaSmart.Controllers
                 };
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var authProperties = new AuthenticationProperties { IsPersistent = true };
+                var authProperties = new AuthenticationProperties { IsPersistent = false };
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
