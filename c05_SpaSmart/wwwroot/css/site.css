@@ -8,10 +8,6 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
 html {
   position: relative;
   min-height: 100%;
@@ -19,4 +15,52 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+/* =======================================================
+   ĐỒNG BỘ UI/UX - MÀU CHỦ ĐẠO (TEAL / XANH NGỌC)
+======================================================= */
+:root {
+  --spa-primary: #20c997; /* Teal */
+  --spa-primary-hover: #1aa179;
+}
+
+/* Ghi đè màu bg-primary của Bootstrap */
+.bg-primary {
+  background-color: var(--spa-primary) !important;
+}
+
+/* Ghi đè chữ text-primary của Bootstrap */
+.text-primary {
+  color: var(--spa-primary) !important;
+}
+
+/* Ghi đè nút btn-primary của Bootstrap */
+.btn-primary {
+  background-color: var(--spa-primary);
+  border-color: var(--spa-primary);
+  color: #fff;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background-color: var(--spa-primary-hover);
+  border-color: var(--spa-primary-hover);
+  color: #fff;
+}
+
+.btn-outline-primary {
+    color: var(--spa-primary);
+    border-color: var(--spa-primary);
+}
+.btn-outline-primary:hover {
+    background-color: var(--spa-primary);
+    color: white;
+}
+
+/* Responsive Table */
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }

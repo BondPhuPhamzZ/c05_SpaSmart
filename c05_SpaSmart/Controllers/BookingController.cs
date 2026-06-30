@@ -37,7 +37,7 @@ namespace c05_SpaSmart.Controllers
 
             ViewBag.DichVu = dichVu;
             
-            // Lấy danh sách KTV rảnh (hoặc hiển thị toàn bộ cho khách chọn, rồi tính validation sau)
+            // Lấy danh sách KTV
             ViewBag.KTVs = await _context.KyThuatViens.ToListAsync();
 
             return View();
@@ -56,7 +56,7 @@ namespace c05_SpaSmart.Controllers
 
             int userId = int.Parse(userIdString);
 
-            // Kiểm tra ràng buộc thời gian trong quá khứ (QĐ03)
+            // Validate thời gian
             if (NgayGioDat <= DateTime.Now)
             {
                 ModelState.AddModelError("NgayGioDat", "Không được đặt lịch vào thời gian trong quá khứ.");
@@ -108,7 +108,7 @@ namespace c05_SpaSmart.Controllers
 
             int userId = int.Parse(userIdString);
 
-            // Lấy danh sách lịch hẹn của User này (kèm ChiTietLichHen và GoiDichVu)
+            // Lấy danh sách lịch hẹn
             var lichHens = await _context.LichHens
                 .Include(l => l.ChiTietLichHens)
                     .ThenInclude(c => c.GoiDichVu)

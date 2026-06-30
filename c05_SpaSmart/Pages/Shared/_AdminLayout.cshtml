@@ -6,10 +6,12 @@
     <title>@ViewData["Title"] - SpaSmart Admin</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <style>
         body {
             font-size: .875rem;
+            background-color: #f8f9fa;
         }
         .sidebar {
             position: fixed;
@@ -19,6 +21,7 @@
             z-index: 100;
             padding: 48px 0 0; 
             box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+            background-color: #ffffff;
         }
         .sidebar-sticky {
             position: relative;
@@ -30,17 +33,24 @@
         }
         .sidebar .nav-link {
             font-weight: 500;
-            color: #333;
+            color: #495057;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 0 10px 5px 10px;
+        }
+        .sidebar .nav-link:hover {
+            background-color: #e9ecef;
         }
         .sidebar .nav-link.active {
-            color: #0d6efd;
+            color: #fff;
+            background-color: var(--spa-primary);
         }
         .navbar-brand {
             padding-top: .75rem;
             padding-bottom: .75rem;
             font-size: 1rem;
-            background-color: rgba(0, 0, 0, .25);
-            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+            background-color: rgba(0, 0, 0, .1);
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
         }
         .navbar .navbar-toggler {
             top: .25rem;
@@ -50,65 +60,60 @@
 </head>
 <body>
     
-    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/Admin/Index">SpaSmart Admin</a>
+    <header class="navbar navbar-dark sticky-top bg-primary flex-md-nowrap p-0 shadow-sm">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fw-bold" asp-page="/Admin/Index">SpaSmart Admin</a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-nav">
+        <div class="navbar-nav w-100 d-flex flex-row justify-content-end px-3">
             <div class="nav-item text-nowrap d-flex align-items-center">
-                <span class="nav-link px-3 text-warning">Hi, @User.Identity?.Name</span>
-                <a class="nav-link px-3" href="/Auth/Logout">Sign out</a>
+                <span class="nav-link px-3 text-white">Xin chào, @User.Identity?.Name</span>
+                <a class="nav-link px-3 fw-bold text-white" asp-controller="Auth" asp-action="Logout"><i class="bi bi-box-arrow-right"></i> Đăng xuất</a>
             </div>
         </div>
     </header>
 
     <div class="container-fluid">
         <div class="row">
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
                 <div class="sidebar-sticky pt-3">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link @(ViewContext.RouteData.Values["page"]?.ToString() == "/Admin/Index" ? "active" : "")" href="/Admin/Index">
-                                Dashboard
+                            <a class="nav-link @(ViewContext.RouteData.Values["page"]?.ToString() == "/Admin/Index" ? "active" : "")" asp-page="/Admin/Index">
+                                <i class="bi bi-speedometer2"></i> Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @(ViewContext.RouteData.Values["page"]?.ToString()!.StartsWith("/Admin/GoiDichVu") == true ? "active" : "")" href="/Admin/GoiDichVu/Index">
-                                Quản lý Gói Dịch Vụ
+                            <a class="nav-link @(ViewContext.RouteData.Values["page"]?.ToString()!.StartsWith("/Admin/GoiDichVu") == true ? "active" : "")" asp-page="/Admin/GoiDichVu/Index">
+                                <i class="bi bi-card-list"></i> Quản lý Gói Dịch Vụ
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @(ViewContext.RouteData.Values["page"]?.ToString()!.StartsWith("/Admin/PhuLieu") == true ? "active" : "")" href="/Admin/PhuLieu/Index">
-                                Quản lý Phụ Liệu
+                            <a class="nav-link @(ViewContext.RouteData.Values["page"]?.ToString()!.StartsWith("/Admin/PhuLieu") == true ? "active" : "")" asp-page="/Admin/PhuLieu/Index">
+                                <i class="bi bi-box"></i> Quản lý Phụ Liệu
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @(ViewContext.RouteData.Values["page"]?.ToString()!.StartsWith("/Admin/KyThuatVien") == true ? "active" : "")" href="/Admin/KyThuatVien/Index">
-                                Quản lý Lịch KTV
+                            <a class="nav-link @(ViewContext.RouteData.Values["page"]?.ToString()!.StartsWith("/Admin/KyThuatVien") == true ? "active" : "")" asp-page="/Admin/KyThuatVien/Index">
+                                <i class="bi bi-people"></i> Quản lý Lịch KTV
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @(ViewContext.RouteData.Values["page"]?.ToString()!.StartsWith("/Admin/LichHen") == true ? "active" : "")" href="/Admin/LichHen/Index">
-                                Duyệt Lịch Hẹn & Hóa Đơn
+                            <a class="nav-link @(ViewContext.RouteData.Values["page"]?.ToString()!.StartsWith("/Admin/LichHen") == true ? "active" : "")" asp-page="/Admin/LichHen/Index">
+                                <i class="bi bi-calendar-check"></i> Duyệt Lịch & Hóa Đơn
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @(ViewContext.RouteData.Values["page"]?.ToString()!.StartsWith("/Admin/PhieuChi") == true ? "active" : "")" href="/Admin/PhieuChi/Index">
-                                Quản lý Chi Tiêu
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Admin/Index">
-                                Báo cáo Doanh Số
+                            <a class="nav-link @(ViewContext.RouteData.Values["page"]?.ToString()!.StartsWith("/Admin/PhieuChi") == true ? "active" : "")" asp-page="/Admin/PhieuChi/Index">
+                                <i class="bi bi-cash-coin"></i> Quản lý Chi Tiêu
                             </a>
                         </li>
                     </ul>
                     <hr />
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link text-secondary" href="/" target="_blank">
-                                Xem trang Khách hàng 🡕
+                            <a class="nav-link text-secondary" asp-controller="Home" asp-action="Index" target="_blank">
+                                <i class="bi bi-box-arrow-up-right"></i> Xem trang Khách hàng
                             </a>
                         </li>
                     </ul>

@@ -47,7 +47,7 @@ namespace c05_SpaSmart.Pages.Admin.LichHen
             TongTienDichVu = lichHen.ChiTietLichHens.Sum(c => c.GiaTienLucDat);
             TienGiamGia = 0;
             
-            // BR06: Nếu tổng tiền dịch vụ > 2.000.000 VNĐ -> giảm 10%
+            // Áp dụng giảm giá 10% nếu > 2.000.000
             if (TongTienDichVu > 2000000)
             {
                 TienGiamGia = TongTienDichVu * 0.1m;
@@ -63,7 +63,7 @@ namespace c05_SpaSmart.Pages.Admin.LichHen
             var lichHen = await _context.LichHens.FindAsync(id);
             if (lichHen == null) return NotFound();
 
-            // Cập nhật trạng thái và lưu bill vào lịch hẹn
+            // Lưu hóa đơn
             lichHen.TrangThai = TrangThaiLichHen.DaThanhToan;
             lichHen.NgayLapHoaDon = DateTime.Now;
             lichHen.TongTien = tongTien;

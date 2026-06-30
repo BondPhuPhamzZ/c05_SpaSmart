@@ -10,30 +10,30 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="/">SpaSmart</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-toggle="target" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">SpaSmart</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Trang Chủ</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Trang Chủ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Booking">Đặt Lịch</a>
+                            <a class="nav-link" asp-controller="Booking" asp-action="Index">Đặt Lịch</a>
                         </li>
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-info fw-bold" href="/Admin/Index">Quản Trị (Admin)</a>
+                                <a class="nav-link text-white fw-bold bg-dark px-3 ms-2 rounded-pill" asp-page="/Admin/Index">Quản Trị (Admin)</a>
                             </li>
                         }
                         @if (User.Identity != null && User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-success" href="/Booking/History">Lịch sử Đặt lịch</a>
+                                <a class="nav-link text-warning fw-bold" asp-controller="Booking" asp-action="History">Lịch sử Đặt lịch</a>
                             </li>
                         }
                     </ul>
@@ -41,16 +41,16 @@
                         @if (User.Identity != null && User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <span class="nav-link text-warning">Xin chào, @User.Identity.Name</span>
+                                <span class="nav-link text-light">Xin chào, @User.Identity.Name</span>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/Auth/Logout">Đăng xuất</a>
+                                <a class="nav-link" asp-controller="Auth" asp-action="Logout">Đăng xuất</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link" href="/Auth/Login">Đăng nhập</a>
+                                <a class="nav-link" asp-controller="Auth" asp-action="Login">Đăng nhập</a>
                             </li>
                         }
                     </ul>
@@ -66,7 +66,7 @@
 
     <footer class="border-top footer text-muted mt-5 pt-3 pb-3">
         <div class="container text-center">
-            &copy; 2026 - SpaSmart
+            &copy; 2026 - SpaSmart Hệ thống quản lý Spa
         </div>
     </footer>
     <!-- Bootstrap 5 JS -->
