@@ -11,7 +11,7 @@ using c05_SpaSmart.Models.Enums;
 
 namespace c05_SpaSmart.Controllers
 {
-    [Authorize(Roles = "Customer")]
+    [Authorize]
     public class BookingController : Controller
     {
         private readonly SpaSmartDbContext _context;
@@ -97,6 +97,27 @@ namespace c05_SpaSmart.Controllers
         {
             ViewBag.LichHenId = id;
             return View();
+        }
+
+        // GET: Booking/History
+        // Hiển thị lịch sử đặt lịch của khách hàng
+        public async Task<IActionResult> History()
+        {
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userIdString)) return Unauthorized();
+
+            int userId = int.Parse(userIdString);
+
+            // Lấy danh sách lịch hẹn của User này (kèm ChiTietLichHen và GoiDichVu)
+            var lichHens = await _context.LichHens
+                .Include(l => l.ChiTietLichHens)
+                    .ThenInclude(c => c.GoiDichVu)
+                .Include(l => l.KyThuatVien)
+                .Where(l => l.UserId == userId)
+                .OrderByDescending(l => l.NgayGioDat)
+                .ToListAsync();
+
+            return View(lichHens);
         }
     }
 }

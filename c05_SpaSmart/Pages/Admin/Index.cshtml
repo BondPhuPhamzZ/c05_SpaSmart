@@ -1,32 +1,79 @@
 @page
 @model c05_SpaSmart.Pages.Admin.IndexModel
 @{
-    Layout = "_Layout";
-    ViewData["Title"] = "Admin Dashboard";
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="container mt-4">
-    <h1 class="text-primary">Admin Dashboard</h1>
-    <p>Chào mừng quản trị viên SpaSmart. Đây là khu vực quản lý bằng Razor Pages.</p>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Dashboard Thống Kê (UC09)</h1>
+</div>
 
-    <div class="row mt-4">
-        <div class="col-md-3">
-            <div class="card text-white bg-info mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Gói Dịch Vụ</h5>
-                    <p class="card-text">Quản lý các dịch vụ Spa</p>
-                    <a href="#" class="btn btn-light btn-sm">Xem chi tiết</a>
-                </div>
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card text-white bg-success mb-3 shadow-sm">
+            <div class="card-header">Tổng Doanh Thu Hóa Đơn</div>
+            <div class="card-body">
+                <h3 class="card-title">@Model.TongDoanhThu.ToString("N0") VNĐ</h3>
+                <p class="card-text">Từ @Model.SoDonDaHoanThanh đơn đặt lịch đã phục vụ xong.</p>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-success mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Lịch Hẹn</h5>
-                    <p class="card-text">Duyệt và lập hóa đơn</p>
-                    <a href="#" class="btn btn-light btn-sm">Xem chi tiết</a>
-                </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card text-white bg-danger mb-3 shadow-sm">
+            <div class="card-header">Tổng Chi Tiêu Vận Hành (UC08)</div>
+            <div class="card-body">
+                <h3 class="card-title">@Model.TongChiTieu.ToString("N0") VNĐ</h3>
+                <p class="card-text">Dữ liệu lấy từ các Phiếu chi xuất ra.</p>
             </div>
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white fw-bold">
+                Biểu đồ Phân tích (Lợi Nhuận: @Model.LoiNhuan.ToString("N0") VNĐ)
+            </div>
+            <div class="card-body">
+                <canvas id="myChart" width="400" height="150"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Thêm thư viện Chart.js theo yêu cầu -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Thu từ Hóa đơn', 'Chi phí Vận hành', 'Lợi Nhuận Thực Tế'],
+                datasets: [{
+                    label: 'Thống kê Tài chính (VNĐ)',
+                    data: [@Model.TongDoanhThu, @Model.TongChiTieu, @Model.LoiNhuan],
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}

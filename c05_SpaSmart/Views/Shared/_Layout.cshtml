@@ -30,6 +30,12 @@
                                 <a class="nav-link text-info fw-bold" href="/Admin/Index">Quản Trị (Admin)</a>
                             </li>
                         }
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-success" href="/Booking/History">Lịch sử Đặt lịch</a>
+                            </li>
+                        }
                     </ul>
                     <ul class="navbar-nav">
                         @if (User.Identity != null && User.Identity.IsAuthenticated)

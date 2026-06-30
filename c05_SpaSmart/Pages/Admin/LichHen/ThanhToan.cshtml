@@ -1,0 +1,88 @@
+@page
+@model c05_SpaSmart.Pages.Admin.LichHen.ThanhToanModel
+
+@{
+    ViewData["Title"] = "Thanh toán & Xuất hóa đơn";
+}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">HÓA ĐƠN THANH TOÁN (Mã Lịch: #@Model.LichHen.Id)</h4>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-sm-6">
+                        <h6 class="mb-3">Khách hàng:</h6>
+                        <div><strong>@Model.LichHen.User.Username</strong></div>
+                        <div>Ngày đặt: @Model.LichHen.NgayGioDat.ToString("dd/MM/yyyy HH:mm")</div>
+                    </div>
+                </div>
+
+                <div class="table-responsive-sm">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Chi tiết Dịch vụ</th>
+                                <th class="right">Đơn giá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.LichHen.ChiTietLichHens)
+                            {
+                                <tr>
+                                    <td class="left">@item.GoiDichVu.TenDichVu</td>
+                                    <td class="right">@item.GiaTienLucDat.ToString("N0") VNĐ</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-5 col-sm-5">
+                        @if(Model.TienGiamGia > 0)
+                        {
+                            <div class="alert alert-warning mt-2">
+                                <strong>🎉 Khuyến mãi tự động:</strong> Hóa đơn > 2.000.000 VNĐ nên được giảm 10%!
+                            </div>
+                        }
+                    </div>
+
+                    <div class="col-lg-6 col-sm-5 ms-auto">
+                        <table class="table table-clear">
+                            <tbody>
+                                <tr>
+                                    <td class="left"><strong>Tổng tiền dịch vụ</strong></td>
+                                    <td class="right text-end">@Model.TongTienDichVu.ToString("N0") VNĐ</td>
+                                </tr>
+                                <tr>
+                                    <td class="left"><strong>Chiết khấu (10%)</strong></td>
+                                    <td class="right text-end text-danger">- @Model.TienGiamGia.ToString("N0") VNĐ</td>
+                                </tr>
+                                <tr>
+                                    <td class="left"><strong>KHÁCH CẦN TRẢ</strong></td>
+                                    <td class="right text-end">
+                                        <strong><h4 class="text-success mb-0">@Model.TongThanhToan.ToString("N0") VNĐ</h4></strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <hr/>
+                <form method="post" class="text-end mt-4">
+                    <input type="hidden" name="id" value="@Model.LichHen.Id" />
+                    <input type="hidden" name="tongTien" value="@Model.TongTienDichVu" />
+                    <input type="hidden" name="tienGiam" value="@Model.TienGiamGia" />
+                    <input type="hidden" name="thanhToan" value="@Model.TongThanhToan" />
+                    
+                    <a asp-page="./Index" class="btn btn-secondary btn-lg">Quay lại</a>
+                    <button type="submit" class="btn btn-success btn-lg"><i class="bi bi-printer"></i> Xác nhận & Hoàn thành</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

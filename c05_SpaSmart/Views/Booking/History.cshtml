@@ -1,0 +1,64 @@
+@model IEnumerable<c05_SpaSmart.Models.LichHen>
+
+@{
+    ViewData["Title"] = "Lịch sử đặt lịch";
+}
+
+<h2 class="mt-4 mb-4">Lịch sử đặt lịch của bạn</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Bạn chưa có lịch hẹn nào. <a asp-action="Index">Đặt lịch ngay</a></div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="table-primary">
+                <tr>
+                    <th>Mã Đơn</th>
+                    <th>Ngày đến</th>
+                    <th>Dịch Vụ</th>
+                    <th>Kỹ Thuật Viên</th>
+                    <th>Tổng Tiền</th>
+                    <th>Trạng Thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>#@item.Id</td>
+                        <td>@item.NgayGioDat.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>
+                            @foreach (var chiTiet in item.ChiTietLichHens)
+                            {
+                                <div>- @chiTiet.GoiDichVu.TenDichVu</div>
+                            }
+                        </td>
+                        <td>@(item.KyThuatVien != null ? item.KyThuatVien.HoTen : "Chưa xếp")</td>
+                        <td>@item.TongTien.ToString("N0") VNĐ</td>
+                        <td>
+                            @if(item.TrangThai == c05_SpaSmart.Models.Enums.TrangThaiLichHen.ChoXacNhan)
+                            {
+                                <span class="badge bg-warning text-dark">Chờ xác nhận</span>
+                            }
+                            else if(item.TrangThai == c05_SpaSmart.Models.Enums.TrangThaiLichHen.DaXacNhan)
+                            {
+                                <span class="badge bg-info text-dark">Đã xác nhận</span>
+                            }
+                            else if(item.TrangThai == c05_SpaSmart.Models.Enums.TrangThaiLichHen.DaThanhToan)
+                            {
+                                <span class="badge bg-success">Hoàn thành (Đã TT)</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">@item.TrangThai</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

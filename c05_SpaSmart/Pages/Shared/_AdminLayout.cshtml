@@ -79,12 +79,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link @(ViewContext.RouteData.Values["page"]?.ToString()!.StartsWith("/Admin/PhuLieu") == true ? "active" : "")" href="/Admin/PhuLieu/Index">
                                 Quản lý Phụ Liệu
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link @(ViewContext.RouteData.Values["page"]?.ToString()!.StartsWith("/Admin/KyThuatVien") == true ? "active" : "")" href="/Admin/KyThuatVien/Index">
                                 Quản lý Lịch KTV
                             </a>
                         </li>
@@ -94,12 +94,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link @(ViewContext.RouteData.Values["page"]?.ToString()!.StartsWith("/Admin/PhieuChi") == true ? "active" : "")" href="/Admin/PhieuChi/Index">
                                 Quản lý Chi Tiêu
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/Admin/Index">
                                 Báo cáo Doanh Số
                             </a>
                         </li>

@@ -1,0 +1,39 @@
+@page
+@model c05_SpaSmart.Pages.Admin.PhieuChi.CreateModel
+
+@{
+    ViewData["Title"] = "Lập Phiếu Chi";
+}
+
+<h2>Lập Phiếu Chi Mới</h2>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="PhieuChi.NgayLap" class="form-label">Ngày Chi</label>
+                <input asp-for="PhieuChi.NgayLap" class="form-control" />
+                <span asp-validation-for="PhieuChi.NgayLap" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="PhieuChi.SoTien" class="form-label">Số Tiền (VNĐ)</label>
+                <input asp-for="PhieuChi.SoTien" type="number" class="form-control" />
+                <span asp-validation-for="PhieuChi.SoTien" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="PhieuChi.LyDoChi" class="form-label">Lý do (Trả tiền điện, nhập phụ liệu...)</label>
+                <textarea asp-for="PhieuChi.LyDoChi" class="form-control"></textarea>
+                <span asp-validation-for="PhieuChi.LyDoChi" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Xuất Quỹ" class="btn btn-danger" />
+                <a asp-page="Index" class="btn btn-secondary">Quay lại</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
