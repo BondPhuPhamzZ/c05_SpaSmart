@@ -1,0 +1,87 @@
+@model IEnumerable<c05_SpaSmart.Models.LichHen>
+@using c05_SpaSmart.Models.Enums
+
+@{
+    ViewData["Title"] = "Lịch sử đặt lịch";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+    <h2 class="fw-bold text-primary-teal mb-0"><i class="fas fa-history me-2"></i> Lịch sử đặt lịch của bạn</h2>
+    <a asp-action="Create" class="btn btn-outline-primary rounded-pill fw-bold"><i class="fas fa-plus me-1"></i> Đặt lịch mới</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="text-center py-5 text-muted">
+        <i class="far fa-calendar-times fa-4x mb-3 text-light"></i>
+        <h4>Bạn chưa có lịch hẹn nào</h4>
+        <p>Hãy đặt ngay một lịch hẹn để trải nghiệm dịch vụ Spa tuyệt vời nhé.</p>
+    </div>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-header bg-white border-bottom pb-0 pt-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-dark fs-5">#@item.Id</span>
+                            
+                            @if(item.TrangThai == TrangThaiLichHen.ChoXacNhan)
+                            {
+                                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">Đang chờ xác nhận</span>
+                            }
+                            else if(item.TrangThai == TrangThaiLichHen.DaXacNhan)
+                            {
+                                <span class="badge bg-info text-dark px-3 py-2 rounded-pill">Đã chốt lịch</span>
+                            }
+                            else if(item.TrangThai == TrangThaiLichHen.DangPhucVu)
+                            {
+                                <span class="badge bg-primary px-3 py-2 rounded-pill">Đang phục vụ</span>
+                            }
+                            else if(item.TrangThai == TrangThaiLichHen.DaPhucVuXong)
+                            {
+                                <span class="badge bg-secondary px-3 py-2 rounded-pill">Chờ thanh toán</span>
+                            }
+                            else if(item.TrangThai == TrangThaiLichHen.DaThanhToan)
+                            {
+                                <span class="badge bg-success px-3 py-2 rounded-pill"><i class="fas fa-check me-1"></i> Hoàn thành</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger px-3 py-2 rounded-pill">Đã hủy</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div class="text-muted small"><i class="far fa-clock me-1"></i> Thời gian đến:</div>
+                            <div class="fw-bold fs-5 text-primary-teal">@item.NgayGioDat.ToString("dd/MM/yyyy HH:mm")</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="text-muted small"><i class="fas fa-user-nurse me-1"></i> KTV phụ trách:</div>
+                            <div class="fw-medium">@(item.KyThuatVien?.HoTen ?? "Sẽ sắp xếp ngẫu nhiên")</div>
+                        </div>
+
+                        <div class="text-muted small mb-1"><i class="fas fa-spa me-1"></i> Dịch vụ đã chọn:</div>
+                        <ul class="list-unstyled mb-0 ms-2 border-start border-2 border-primary ps-2">
+                            @foreach (var chiTiet in item.ChiTietLichHens!)
+                            {
+                                <li>- @chiTiet.GoiDichVu?.TenDichVu</li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-light border-0 py-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-muted small">Tổng tiền:</span>
+                            <span class="fw-bold text-danger fs-5">@item.TongThanhToan.ToString("N0")đ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

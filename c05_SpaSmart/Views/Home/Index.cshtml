@@ -1,0 +1,37 @@
+@model IEnumerable<c05_SpaSmart.Models.GoiDichVu>
+
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold text-primary-teal mb-3">Chào mừng đến với SpaSmart</h1>
+    <p class="lead text-muted">Trải nghiệm dịch vụ chăm sóc sức khỏe và làm đẹp hàng đầu.</p>
+    @if (!User.Identity!.IsAuthenticated)
+    {
+        <a asp-controller="Auth" asp-action="Register" class="btn btn-primary btn-lg rounded-pill px-5 mt-3 shadow">Đăng ký thành viên ngay</a>
+    }
+</div>
+
+<h2 class="fw-bold mb-4 text-center">Các gói dịch vụ nổi bật</h2>
+<div class="row g-4">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body p-4 text-center">
+                    <div class="display-1 text-primary-teal mb-3"><i class="fas fa-spa"></i></div>
+                    <h4 class="card-title fw-bold">@item.TenDichVu</h4>
+                    <p class="card-text text-muted mb-4">@item.MoTa</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <span class="fs-5 fw-bold text-danger">@item.GiaTien.ToString("N0")đ</span>
+                        <span class="badge bg-light text-dark border"><i class="far fa-clock me-1"></i> @item.ThoiLuongPhut phút</span>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-0 p-4 pt-0">
+                    <a asp-controller="Booking" asp-action="Create" class="btn btn-outline-primary w-100 rounded-pill">Đặt lịch dịch vụ này</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
