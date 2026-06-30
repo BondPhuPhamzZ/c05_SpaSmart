@@ -23,6 +23,7 @@ namespace c05_SpaSmart.Pages.Admin.LichHen
         }
 
         public IList<c05_SpaSmart.Models.LichHen> LichHenList { get;set; } = default!;
+        public IList<c05_SpaSmart.Models.KyThuatVien> KtvSanSangList { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
@@ -36,14 +37,43 @@ namespace c05_SpaSmart.Pages.Admin.LichHen
                     .OrderByDescending(l => l.NgayGioDat)
                     .ToListAsync();
             }
+
+            if (_context.KyThuatViens != null)
+            {
+                // Chỉ lấy các KTV đang rảnh rỗi để có thể gán lịch
+                KtvSanSangList = await _context.KyThuatViens
+                    .Where(k => k.TrangThaiKTV == TrangThaiKTV.SanSang)
+                    .ToListAsync();
+            }
         }
 
-        public async Task<IActionResult> OnPostUpdateStatusAsync(int id, TrangThaiLichHen status)
+        public async Task<IActionResult> OnPostUpdateStatusAsync(int id, int status, int? ktvId)
         {
-            var lichHen = await _context.LichHens.FindAsync(id);
+            var lichHen = await _context.LichHens.Include(l => l.KyThuatVien).FirstOrDefaultAsync(l => l.Id == id);
+            
             if (lichHen != null)
             {
-                lichHen.TrangThai = status;
+                var newStatus = (TrangThaiLichHen)status;
+
+                // Cập nhật trạng thái Lịch Hẹn
+                lichHen.TrangThai = newStatus;
+
+                // Nếu xác nhận và có chọn KTV
+                if (newStatus == TrangThaiLichHen.DaXacNhan && ktvId.HasValue)
+                {
+                    lichHen.KyThuatVienId = ktvId.Value;
+                }
+
+                // Cập nhật trạng thái KTV cho logic thực tế
+                if (newStatus == TrangThaiLichHen.DangPhucVu && lichHen.KyThuatVien != null)
+                {
+                    lichHen.KyThuatVien.TrangThaiKTV = TrangThaiKTV.DangBan;
+                }
+                else if (newStatus == TrangThaiLichHen.DaPhucVuXong && lichHen.KyThuatVien != null)
+                {
+                    lichHen.KyThuatVien.TrangThaiKTV = TrangThaiKTV.SanSang;
+                }
+
                 await _context.SaveChangesAsync();
             }
             return RedirectToPage("./Index");

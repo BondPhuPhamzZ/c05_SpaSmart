@@ -26,6 +26,8 @@ namespace c05_SpaSmart
                     options.LoginPath = "/Auth/Login";
                     options.LogoutPath = "/Auth/Logout";
                     options.AccessDeniedPath = "/Auth/AccessDenied";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                    options.SlidingExpiration = true;
                 });
 
             // 4. Add MVC (for Customer) and Razor Pages (for Admin)

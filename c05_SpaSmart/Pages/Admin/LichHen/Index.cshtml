@@ -36,7 +36,7 @@
                         <div>- @chiTiet.GoiDichVu.TenDichVu</div>
                     }
                 </td>
-                <td>@(item.KyThuatVien?.HoTen ?? "Chưa có")</td>
+                <td>@(item.KyThuatVien?.HoTen ?? "Chưa xếp")</td>
                 <td>@item.TongTien.ToString("N0") VNĐ</td>
                 <td>
                     @if(item.TrangThai == TrangThaiLichHen.ChoXacNhan)
@@ -65,23 +65,31 @@
                     }
                 </td>
                 <td>
-                    <form method="post" class="d-inline">
+                    <form method="post" class="d-inline d-flex gap-2">
                         <input type="hidden" name="id" value="@item.Id" />
+                        
                         @if (item.TrangThai == TrangThaiLichHen.ChoXacNhan)
                         {
-                            <button type="submit" asp-page-handler="UpdateStatus" asp-route-status="@TrangThaiLichHen.DaXacNhan" class="btn btn-sm btn-info">Xác nhận</button>
+                            <select name="ktvId" class="form-select form-select-sm" style="width: auto;">
+                                <option value="">-- Chọn KTV rảnh --</option>
+                                @foreach(var ktv in Model.KtvSanSangList)
+                                {
+                                    <option value="@ktv.Id">@ktv.HoTen</option>
+                                }
+                            </select>
+                            <button type="submit" asp-page-handler="UpdateStatus" asp-route-status="@((int)TrangThaiLichHen.DaXacNhan)" class="btn btn-sm btn-info text-nowrap">Duyệt lịch</button>
                         }
                         else if (item.TrangThai == TrangThaiLichHen.DaXacNhan)
                         {
-                            <button type="submit" asp-page-handler="UpdateStatus" asp-route-status="@TrangThaiLichHen.DangPhucVu" class="btn btn-sm btn-primary">Bắt đầu PV</button>
+                            <button type="submit" asp-page-handler="UpdateStatus" asp-route-status="@((int)TrangThaiLichHen.DangPhucVu)" class="btn btn-sm btn-primary text-nowrap">Bắt đầu Phục vụ</button>
                         }
                         else if (item.TrangThai == TrangThaiLichHen.DangPhucVu)
                         {
-                            <button type="submit" asp-page-handler="UpdateStatus" asp-route-status="@TrangThaiLichHen.DaPhucVuXong" class="btn btn-sm btn-secondary">PV Xong</button>
+                            <button type="submit" asp-page-handler="UpdateStatus" asp-route-status="@((int)TrangThaiLichHen.DaPhucVuXong)" class="btn btn-sm btn-secondary text-nowrap">Đã Phục vụ xong</button>
                         }
                         else if (item.TrangThai == TrangThaiLichHen.DaPhucVuXong)
                         {
-                            <a asp-page="./ThanhToan" asp-route-id="@item.Id" class="btn btn-sm btn-success fw-bold">Thanh Toán</a>
+                            <a asp-page="./ThanhToan" asp-route-id="@item.Id" class="btn btn-sm btn-success fw-bold text-nowrap">Thanh Toán</a>
                         }
                     </form>
                 </td>
