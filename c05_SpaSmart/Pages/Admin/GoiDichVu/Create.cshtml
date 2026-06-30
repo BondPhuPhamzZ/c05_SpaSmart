@@ -1,0 +1,44 @@
+@page
+@model c05_SpaSmart.Pages.Admin.GoiDichVu.CreateModel
+
+@{
+    ViewData["Title"] = "Thêm Gói Dịch Vụ Mới";
+}
+
+<h2>Thêm Gói Dịch Vụ Mới</h2>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="GoiDichVu.TenDichVu" class="form-label">Tên dịch vụ</label>
+                <input asp-for="GoiDichVu.TenDichVu" class="form-control" />
+                <span asp-validation-for="GoiDichVu.TenDichVu" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="GoiDichVu.MoTa" class="form-label">Mô tả</label>
+                <textarea asp-for="GoiDichVu.MoTa" class="form-control"></textarea>
+                <span asp-validation-for="GoiDichVu.MoTa" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="GoiDichVu.GiaTien" class="form-label">Giá tiền (VNĐ)</label>
+                <input asp-for="GoiDichVu.GiaTien" type="number" class="form-control" />
+                <span asp-validation-for="GoiDichVu.GiaTien" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="GoiDichVu.ThoiLuongPhut" class="form-label">Thời lượng (Phút)</label>
+                <input asp-for="GoiDichVu.ThoiLuongPhut" type="number" class="form-control" />
+                <span asp-validation-for="GoiDichVu.ThoiLuongPhut" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Lưu Dữ Liệu" class="btn btn-primary" />
+                <a asp-page="Index" class="btn btn-secondary">Quay lại</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

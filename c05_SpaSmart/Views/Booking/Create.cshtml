@@ -1,0 +1,60 @@
+@{
+    ViewData["Title"] = "Tiến hành Đặt Lịch";
+    var dichVu = ViewBag.DichVu as c05_SpaSmart.Models.GoiDichVu;
+    var ktvs = ViewBag.KTVs as IEnumerable<c05_SpaSmart.Models.KyThuatVien>;
+}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Xác nhận thông tin Đặt lịch</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <strong>Gói đã chọn:</strong> @dichVu?.TenDichVu <br/>
+                    <strong>Giá:</strong> @dichVu?.GiaTien.ToString("N0") VNĐ <br/>
+                    <strong>Thời lượng:</strong> @dichVu?.ThoiLuongPhut phút
+                </div>
+
+                <form asp-action="Create" method="post">
+                    <input type="hidden" name="DichVuId" value="@dichVu?.Id" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Chọn Kỹ thuật viên (Tùy chọn)</label>
+                        <select name="KyThuatVienId" class="form-select">
+                            <option value="">-- Bất kỳ ai --</option>
+                            @if(ktvs != null)
+                            {
+                                foreach (var ktv in ktvs)
+                                {
+                                    <option value="@ktv.Id">@ktv.HoTen (@ktv.ChuyenMon)</option>
+                                }
+                            }
+                        </select>
+                        <small class="text-muted">Hệ thống sẽ tự động phân công nếu bạn bỏ trống.</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Ngày và Giờ đến</label>
+                        <input type="datetime-local" name="NgayGioDat" class="form-control" required />
+                        @if (ViewData.ModelState["NgayGioDat"]?.Errors.Count > 0)
+                        {
+                            <span class="text-danger">@ViewData.ModelState["NgayGioDat"]?.Errors[0].ErrorMessage</span>
+                        }
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Ghi chú (Dị ứng, yêu cầu đặc biệt...)</label>
+                        <textarea name="GhiChu" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success btn-lg">Xác Nhận Đặt Lịch</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">Quay lại danh sách</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

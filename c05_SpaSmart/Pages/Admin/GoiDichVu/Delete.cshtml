@@ -1,0 +1,32 @@
+@page
+@model c05_SpaSmart.Pages.Admin.GoiDichVu.DeleteModel
+
+@{
+    ViewData["Title"] = "Xóa Gói Dịch Vụ";
+}
+
+<h2>Xóa Gói Dịch Vụ</h2>
+
+<h4 class="text-danger">Bạn có chắc chắn muốn xóa gói dịch vụ này?</h4>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">Tên dịch vụ</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.GoiDichVu.TenDichVu)</dd>
+        
+        <dt class="col-sm-3">Mô tả</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.GoiDichVu.MoTa)</dd>
+        
+        <dt class="col-sm-3">Giá tiền</dt>
+        <dd class="col-sm-9">@Model.GoiDichVu.GiaTien.ToString("N0") VNĐ</dd>
+        
+        <dt class="col-sm-3">Thời lượng</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.GoiDichVu.ThoiLuongPhut) phút</dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="GoiDichVu.Id" />
+        <input type="submit" value="Xác nhận Xóa" class="btn btn-danger" />
+        <a asp-page="./Index" class="btn btn-secondary">Hủy bỏ</a>
+    </form>
+</div>

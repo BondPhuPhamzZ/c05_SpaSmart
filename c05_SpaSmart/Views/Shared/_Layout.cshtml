@@ -19,11 +19,17 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Khách Hàng (Trang Chủ)</a>
+                            <a class="nav-link" href="/">Trang Chủ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Admin/Index">Admin (Quản Trị)</a>
+                            <a class="nav-link" href="/Booking">Đặt Lịch</a>
                         </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-info fw-bold" href="/Admin/Index">Quản Trị (Admin)</a>
+                            </li>
+                        }
                     </ul>
                     <ul class="navbar-nav">
                         @if (User.Identity != null && User.Identity.IsAuthenticated)
