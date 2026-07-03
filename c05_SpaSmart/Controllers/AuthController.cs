@@ -56,7 +56,7 @@ namespace c05_SpaSmart.Controllers
 
                     if (user.Role == UserRole.Admin)
                     {
-                        return Redirect("/Admin/LichHen"); 
+                        return Redirect("/Admin/Dashboard"); 
                     }
 
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
