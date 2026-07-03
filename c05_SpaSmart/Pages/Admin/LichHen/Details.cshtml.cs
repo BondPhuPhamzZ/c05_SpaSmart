@@ -113,7 +113,7 @@ namespace c05_SpaSmart.Pages.Admin.LichHen
             }
             else if (actionType == "HuyLich")
             {
-                lichHen.TrangThai = TrangThaiLichHen.DaHuy;
+                lichHen.TrangThai = TrangThaiLichHen.Canceled;
                 // Free KTV
                 if (lichHen.KyThuatVienId.HasValue)
                 {
