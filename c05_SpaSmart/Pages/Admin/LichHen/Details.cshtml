@@ -10,7 +10,7 @@
     <div class="col-lg-8">
         <div class="card shadow-sm border-0 mb-4">
             <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-                <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-file-invoice text-primary-teal me-2"></i>Chi tiết phiếu đặt lịch</h5>
+                <h5 class="mb-0 fw-bold text-dark">Chi tiết phiếu đặt lịch</h5>
                 <span class="badge fs-6 @(Model.LichHen.TrangThai == TrangThaiLichHen.DaThanhToan ? "bg-success" : (Model.LichHen.TrangThai == TrangThaiLichHen.ChoXacNhan ? "bg-warning text-dark" : "bg-primary"))">
                     @Model.LichHen.TrangThai.ToString()
                 </span>
@@ -19,15 +19,9 @@
                 <div class="row mb-4">
                     <div class="col-sm-6">
                         <h6 class="fw-bold text-muted text-uppercase mb-3">Thông tin Khách Hàng</h6>
-                        <p class="mb-1"><i class="fas fa-user text-muted me-2"></i> <strong>@Model.LichHen.User?.FullName</strong></p>
-                        <p class="mb-1"><i class="fas fa-phone text-muted me-2"></i> @Model.LichHen.User?.PhoneNumber</p>
-                        <p class="mb-1"><i class="fas fa-star text-warning me-2"></i> Điểm tích lũy: @Model.LichHen.User?.DiemTichLuy điểm</p>
-                        @if (!string.IsNullOrEmpty(Model.LichHen.GhiChu))
-                        {
-                            <div class="alert alert-warning py-2 mt-3 mb-0">
-                                <i class="fas fa-exclamation-circle me-1"></i> <strong>Ghi chú:</strong> @Model.LichHen.GhiChu
-                            </div>
-                        }
+                        <p class="mb-1">Khách hàng: <strong>@Model.LichHen.User?.FullName</strong></p>
+                        <p class="mb-1">SĐT: @Model.LichHen.User?.PhoneNumber</p>
+                        <p class="mb-1">Điểm tích lũy: @Model.LichHen.User?.DiemTichLuy điểm</p>
                     </div>
                     <div class="col-sm-6 text-sm-end mt-4 mt-sm-0">
                         <h6 class="fw-bold text-muted text-uppercase mb-3">Thông tin Lịch Hẹn</h6>
@@ -46,6 +40,16 @@
                         </p>
                     </div>
                 </div>
+                @if (!string.IsNullOrEmpty(Model.LichHen.GhiChu))
+                {
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="alert alert-warning py-3 mb-0 w-100">
+                                <strong>Ghi chú từ khách hàng:</strong> @Model.LichHen.GhiChu
+                            </div>
+                        </div>
+                    </div>
+                }
 
                 <div class="table-responsive">
                     <table class="table table-bordered mb-0">
@@ -97,7 +101,7 @@
     <div class="col-lg-4">
         <div class="card shadow-sm border-0">
             <div class="card-header bg-white py-3">
-                <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-cogs text-primary-teal me-2"></i>Bộ điều khiển quy trình</h5>
+                <h5 class="mb-0 fw-bold text-dark">Bộ điều khiển quy trình</h5>
             </div>
             <div class="card-body p-4 text-center">
                 @if (Model.LichHen.TrangThai == TrangThaiLichHen.ChoXacNhan)
@@ -117,12 +121,12 @@
                             </div>
                         }
                         
-                        <button type="submit" class="btn btn-primary w-100 mb-2 py-2 fw-bold"><i class="fas fa-check-circle me-1"></i> Chấp Nhận Duyệt Lịch</button>
+                        <button type="submit" class="btn btn-primary w-100 mb-2 py-2 fw-bold">Chấp Nhận Duyệt Lịch</button>
                     </form>
                     <form method="post" asp-page-handler="UpdateStatus">
                         <input type="hidden" name="id" value="@Model.LichHen.Id" />
                         <input type="hidden" name="actionType" value="HuyLich" />
-                        <button type="submit" class="btn btn-outline-danger w-100 py-2"><i class="fas fa-times me-1"></i> Hủy Yêu Cầu</button>
+                        <button type="submit" class="btn btn-outline-danger w-100 py-2">Hủy Yêu Cầu</button>
                     </form>
                 }
                 else if (Model.LichHen.TrangThai == TrangThaiLichHen.DaXacNhan)
@@ -131,7 +135,7 @@
                     <form method="post" asp-page-handler="UpdateStatus">
                         <input type="hidden" name="id" value="@Model.LichHen.Id" />
                         <input type="hidden" name="actionType" value="PhucVu" />
-                        <button type="submit" class="btn btn-primary w-100 py-2 fw-bold"><i class="fas fa-hands me-1"></i> KTV Bắt Đầu Phục Vụ</button>
+                        <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">KTV Bắt Đầu Phục Vụ</button>
                     </form>
                 }
                 else if (Model.LichHen.TrangThai == TrangThaiLichHen.DangPhucVu)
@@ -140,13 +144,13 @@
                     <form method="post" asp-page-handler="UpdateStatus">
                         <input type="hidden" name="id" value="@Model.LichHen.Id" />
                         <input type="hidden" name="actionType" value="Xong" />
-                        <button type="submit" class="btn btn-warning text-dark w-100 py-2 fw-bold"><i class="fas fa-concierge-bell me-1"></i> Báo Cáo Đã Phục Vụ Xong</button>
+                        <button type="submit" class="btn btn-warning text-dark w-100 py-2 fw-bold">Báo Cáo Đã Phục Vụ Xong</button>
                     </form>
                 }
                 else if (Model.LichHen.TrangThai == TrangThaiLichHen.DaPhucVuXong)
                 {
                     <div class="alert alert-info text-start small mb-3">
-                        <strong><i class="fas fa-box-open"></i> Phụ liệu sẽ bị trừ kho:</strong><br/>
+                        <strong>Phụ liệu sẽ bị trừ kho:</strong><br/>
                         @if(Model.PhuLieuSuDungList.Any())
                         {
                             foreach(var pl in Model.PhuLieuSuDungList)
@@ -162,7 +166,7 @@
                     @if (Model.LichHen.TongTien >= 2000000)
                     {
                         <div class="alert alert-success text-start small mb-3">
-                            <i class="fas fa-gift"></i> <strong>Ưu đãi:</strong> Đơn hàng >= 2.000.000đ sẽ tự động được giảm 10% khi thanh toán! (Theo QĐ02)
+                            <strong>Ưu đãi:</strong> Đơn hàng >= 2.000.000đ sẽ tự động được giảm 10% khi thanh toán! (Theo QĐ02)
                         </div>
                     }
 
@@ -170,27 +174,25 @@
                     <form method="post" asp-page-handler="UpdateStatus">
                         <input type="hidden" name="id" value="@Model.LichHen.Id" />
                         <input type="hidden" name="actionType" value="ThanhToan" />
-                        <button type="submit" class="btn btn-success w-100 py-3 fw-bold fs-5 shadow-sm"><i class="fas fa-print me-1"></i> Thanh Toán & In HĐ</button>
+                        <button type="submit" class="btn btn-success w-100 py-3 fw-bold fs-5 shadow-sm">Thanh Toán & In HĐ</button>
                     </form>
                 }
                 else if (Model.LichHen.TrangThai == TrangThaiLichHen.DaThanhToan)
                 {
                     <div class="text-success mb-3">
-                        <i class="fas fa-check-circle fa-4x mb-2"></i>
                         <h5 class="fw-bold">Giao Dịch Hoàn Tất</h5>
                     </div>
-                    <button class="btn btn-outline-primary w-100" onclick="window.print()"><i class="fas fa-print me-1"></i> In Lại Hóa Đơn</button>
+                    <button class="btn btn-outline-primary w-100" onclick="window.print()">In Lại Hóa Đơn</button>
                 }
                 else
                 {
                     <div class="text-danger mb-3">
-                        <i class="fas fa-times-circle fa-4x mb-2"></i>
                         <h5 class="fw-bold">Lịch Đã Hủy</h5>
                     </div>
                 }
 
                 <hr class="my-4"/>
-                <a asp-page="./Index" class="text-decoration-none text-muted"><i class="fas fa-arrow-left me-1"></i> Quay lại danh sách</a>
+                <a asp-page="./Index" class="text-decoration-none text-muted">Quay lại danh sách</a>
             </div>
         </div>
     </div>

@@ -7,14 +7,14 @@
 
 <div class="card shadow-sm border-0 mb-4">
     <div class="card-header bg-white py-3">
-        <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-user-nurse text-primary-teal me-2"></i>Danh sách và trạng thái làm việc KTV</h5>
+        <h5 class="mb-0 fw-bold text-dark">Danh sách và trạng thái làm việc KTV</h5>
     </div>
     <div class="card-body p-0">
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
+            <table class="table table-hover align-middle text-center mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th class="px-4 py-3">Họ Tên KTV</th>
+                        <th class="px-4 py-3 text-start">Họ Tên KTV</th>
                         <th>Chuyên Môn</th>
                         <th>Trạng Thái Hiện Tại</th>
                         <th>Cập Nhật Nhanh Lịch KTV (UC05)</th>
@@ -23,8 +23,7 @@
                 <tbody>
                     @foreach (var item in Model.KyThuatVienList) {
                         <tr>
-                            <td class="px-4 fw-medium text-dark">
-                                <i class="fas fa-user-circle text-muted fs-4 me-2 align-middle"></i>
+                            <td class="px-4 fw-medium text-dark text-start">
                                 @item.HoTen
                             </td>
                             <td>@item.ChuyenMon</td>

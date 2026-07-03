@@ -6,15 +6,15 @@
 
 <div class="card shadow-sm border-0">
     <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
-        <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-list text-primary-teal me-2"></i>Danh sách dịch vụ</h5>
+        <h5 class="mb-0 fw-bold text-dark">Danh sách dịch vụ</h5>
         <a asp-page="./Create" class="btn btn-primary rounded-pill"><i class="fas fa-plus me-1"></i> Thêm mới</a>
     </div>
     <div class="card-body p-0">
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
+            <table class="table table-hover align-middle text-center mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th class="px-4 py-3">Tên Dịch Vụ</th>
+                        <th class="px-4 py-3 text-start">Tên Dịch Vụ</th>
                         <th>Thời Lượng</th>
                         <th>Giá Tiền</th>
                         <th>Hành Động</th>
@@ -23,11 +23,14 @@
                 <tbody>
                     @foreach (var item in Model.GoiDichVuList) {
                         <tr>
-                            <td class="px-4 fw-medium text-dark">@item.TenDichVu</td>
+                            <td class="px-4 fw-medium text-dark text-start">@item.TenDichVu</td>
                             <td><span class="badge bg-secondary">@item.ThoiLuongPhut phút</span></td>
                             <td class="text-primary-teal fw-bold">@item.GiaTien.ToString("N0")đ</td>
                             <td>
-                                <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary rounded-circle" title="Chỉnh sửa"><i class="fas fa-edit"></i></a>
+                                <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary rounded-circle me-1" title="Chỉnh sửa"><i class="fas fa-edit"></i></a>
+                                <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" class="d-inline" onsubmit="return confirm('Bạn có chắc muốn xóa dịch vụ này?');">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger rounded-circle" title="Xóa"><i class="fas fa-trash-alt"></i></button>
+                                </form>
                             </td>
                         </tr>
                     }

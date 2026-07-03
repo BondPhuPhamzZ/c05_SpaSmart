@@ -26,5 +26,24 @@ namespace c05_SpaSmart.Pages.Admin.GoiDichVu
                 GoiDichVuList = await _context.GoiDichVus.ToListAsync();
             }
         }
+
+        public async Task<IActionResult> OnPostDeleteAsync(int id)
+        {
+            var goidichvu = await _context.GoiDichVus.FindAsync(id);
+            if (goidichvu != null)
+            {
+                _context.GoiDichVus.Remove(goidichvu);
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Đã xóa dịch vụ thành công.";
+                }
+                catch (DbUpdateException)
+                {
+                    TempData["ErrorMessage"] = "Không thể xóa dịch vụ này vì đã được sử dụng trong lịch hẹn hoặc có định mức phụ liệu.";
+                }
+            }
+            return RedirectToPage("./Index");
+        }
     }
 }

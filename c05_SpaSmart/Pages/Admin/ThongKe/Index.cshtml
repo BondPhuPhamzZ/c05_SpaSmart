@@ -4,12 +4,18 @@
     ViewData["Title"] = "Thống Kê Lợi Nhuận (UC09)";
 }
 
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="mb-0 fw-bold text-dark">Báo Cáo Doanh Số & Lợi Nhuận</h4>
+    <button class="btn btn-success rounded-pill" onclick="window.print()">
+        Xuất Báo Cáo
+    </button>
+</div>
+
 <div class="row g-4 mb-4">
     <div class="col-12">
         <div class="card shadow-sm border-0">
-            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-                <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-chart-pie text-primary-teal me-2"></i>Báo Cáo Doanh Số Tháng @DateTime.Now.Month/@DateTime.Now.Year</h5>
-                <button class="btn btn-outline-success rounded-pill btn-sm" onclick="window.print()"><i class="fas fa-file-excel me-1"></i> Xuất Báo Cáo</button>
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold text-dark">Báo Cáo Doanh Số Tháng @DateTime.Now.Month/@DateTime.Now.Year</h5>
             </div>
             <div class="card-body p-4">
                 <div class="row text-center">
@@ -35,7 +41,7 @@
     <div class="col-md-12">
         <div class="card shadow-sm border-0 h-100">
             <div class="card-header bg-white py-3">
-                <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-history text-primary-teal me-2"></i>Lũy Kế Toàn Thời Gian</h5>
+                <h5 class="mb-0 fw-bold text-dark">Tổng Kết Từ Trước Đến Nay</h5>
             </div>
             <div class="card-body p-4">
                 <!-- Mô phỏng Biểu đồ bằng Progress Bar -->
