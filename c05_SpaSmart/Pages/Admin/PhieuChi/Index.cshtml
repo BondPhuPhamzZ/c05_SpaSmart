@@ -1,0 +1,41 @@
+@page
+@model c05_SpaSmart.Pages.Admin.PhieuChi.IndexModel
+@{
+    ViewData["Title"] = "Quản Lý Chi Tiêu Vận Hành";
+}
+
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+        <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-file-invoice-dollar text-primary-teal me-2"></i>Danh sách phiếu chi xuất quỹ</h5>
+        <a asp-page="./Create" class="btn btn-primary rounded-pill"><i class="fas fa-plus me-1"></i> Lập phiếu chi mới</a>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="px-4 py-3">Mã PC</th>
+                        <th>Ngày Lập</th>
+                        <th>Lý Do Chi</th>
+                        <th>Số Tiền Chi</th>
+                        <th>Người Lập</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.PhieuChiList) {
+                        <tr>
+                            <td class="px-4 fw-medium text-dark">#@item.Id</td>
+                            <td>@item.NgayLap.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>@item.LyDoChi</td>
+                            <td class="text-danger fw-bold">-@item.SoTien.ToString("N0")đ</td>
+                            <td>
+                                <i class="fas fa-user-shield text-muted me-1"></i>
+                                @item.User?.FullName
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

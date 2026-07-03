@@ -1,0 +1,53 @@
+@page
+@model c05_SpaSmart.Pages.Admin.PhuLieu.CreateModel
+@{
+    ViewData["Title"] = "Thêm Phụ Liệu Mới";
+}
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-plus-circle text-primary-teal me-2"></i>Khai báo phụ liệu mới vào kho</h5>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label asp-for="PhuLieu.TenPhuLieu" class="form-label fw-bold">Tên Phụ Liệu <span class="text-danger">*</span></label>
+                            <input asp-for="PhuLieu.TenPhuLieu" class="form-control form-control-lg" placeholder="VD: Dầu massage, Tinh dầu..." />
+                            <span asp-validation-for="PhuLieu.TenPhuLieu" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="PhuLieu.HangSanXuat" class="form-label fw-bold">Hãng Sản Xuất <span class="text-danger">*</span></label>
+                            <input asp-for="PhuLieu.HangSanXuat" class="form-control form-control-lg" placeholder="Nhập tên hãng..." />
+                            <span asp-validation-for="PhuLieu.HangSanXuat" class="text-danger small"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label asp-for="PhuLieu.DonGia" class="form-label fw-bold">Đơn Giá / Đơn Vị (VNĐ) <span class="text-danger">*</span></label>
+                            <input asp-for="PhuLieu.DonGia" type="number" step="100" class="form-control form-control-lg" />
+                            <span asp-validation-for="PhuLieu.DonGia" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="PhuLieu.TonKho" class="form-label fw-bold">Số lượng (tồn kho ban đầu) <span class="text-danger">*</span></label>
+                            <input asp-for="PhuLieu.TonKho" type="number" class="form-control form-control-lg" />
+                            <span asp-validation-for="PhuLieu.TonKho" class="text-danger small"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <a asp-page="Index" class="btn btn-outline-secondary px-4 rounded-pill">Quay lại</a>
+                        <button type="submit" class="btn btn-primary px-5 rounded-pill"><i class="fas fa-save me-2"></i> Lưu Phụ Liệu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

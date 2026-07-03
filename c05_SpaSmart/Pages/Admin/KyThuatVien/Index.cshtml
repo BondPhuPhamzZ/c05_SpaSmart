@@ -1,0 +1,68 @@
+@page
+@using c05_SpaSmart.Models.Enums
+@model c05_SpaSmart.Pages.Admin.KyThuatVien.IndexModel
+@{
+    ViewData["Title"] = "Quản lý Lịch Kỹ Thuật Viên";
+}
+
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-white py-3">
+        <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-user-nurse text-primary-teal me-2"></i>Danh sách và trạng thái làm việc KTV</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="px-4 py-3">Họ Tên KTV</th>
+                        <th>Chuyên Môn</th>
+                        <th>Trạng Thái Hiện Tại</th>
+                        <th>Cập Nhật Nhanh Lịch KTV (UC05)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.KyThuatVienList) {
+                        <tr>
+                            <td class="px-4 fw-medium text-dark">
+                                <i class="fas fa-user-circle text-muted fs-4 me-2 align-middle"></i>
+                                @item.HoTen
+                            </td>
+                            <td>@item.ChuyenMon</td>
+                            <td>
+                                @if(item.TrangThaiKTV == TrangThaiKTV.SanSang)
+                                {
+                                    <span class="badge bg-success px-3 py-2 rounded-pill"><i class="fas fa-check me-1"></i> Rảnh / Sẵn sàng</span>
+                                }
+                                else if(item.TrangThaiKTV == TrangThaiKTV.DangBan)
+                                {
+                                    <span class="badge bg-warning text-dark px-3 py-2 rounded-pill"><i class="fas fa-spinner fa-spin me-1"></i> Đang bận</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger px-3 py-2 rounded-pill"><i class="fas fa-bed me-1"></i> Nghỉ phép</span>
+                                }
+                            </td>
+                            <td>
+                                <form method="post" asp-page-handler="UpdateStatus" class="d-inline">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <input type="hidden" name="newStatus" value="SanSang" />
+                                    <button type="submit" class="btn btn-sm btn-outline-success" @(item.TrangThaiKTV == TrangThaiKTV.SanSang ? "disabled" : "") title="Sẵn sàng phục vụ"><i class="fas fa-check"></i></button>
+                                </form>
+                                <form method="post" asp-page-handler="UpdateStatus" class="d-inline mx-1">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <input type="hidden" name="newStatus" value="DangBan" />
+                                    <button type="submit" class="btn btn-sm btn-outline-warning" @(item.TrangThaiKTV == TrangThaiKTV.DangBan ? "disabled" : "") title="Bận đột xuất (trong 30p)"><i class="fas fa-clock"></i></button>
+                                </form>
+                                <form method="post" asp-page-handler="UpdateStatus" class="d-inline">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <input type="hidden" name="newStatus" value="NghiPhep" />
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" @(item.TrangThaiKTV == TrangThaiKTV.NghiPhep ? "disabled" : "") title="Nghỉ phép / Nghỉ ca"><i class="fas fa-power-off"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

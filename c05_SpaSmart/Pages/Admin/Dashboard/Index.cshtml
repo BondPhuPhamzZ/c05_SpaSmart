@@ -1,0 +1,102 @@
+@page
+@model c05_SpaSmart.Pages.Admin.Dashboard.IndexModel
+@{
+    ViewData["Title"] = "Dashboard Tổng Quát";
+}
+
+<div class="row g-4 mb-4">
+    <!-- Thống kê Chờ Xác Nhận -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-warning text-white h-100 shadow-sm border-0">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="text-uppercase fw-bold mb-2">Chờ Xác Nhận</h6>
+                    <h2 class="mb-0 fw-bold">@Model.ChoXacNhanCount</h2>
+                </div>
+                <div class="fs-1 opacity-50">
+                    <i class="fas fa-bell"></i>
+                </div>
+            </div>
+            <a href="/Admin/LichHen" class="card-footer text-white text-decoration-none d-flex justify-content-between align-items-center bg-dark bg-opacity-25 border-0">
+                <span class="small">Xem chi tiết</span>
+                <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Thống kê Lịch hôm nay -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-info text-white h-100 shadow-sm border-0">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="text-uppercase fw-bold mb-2">Lịch Hôm Nay</h6>
+                    <h2 class="mb-0 fw-bold">@Model.LichHenHomNayCount</h2>
+                </div>
+                <div class="fs-1 opacity-50">
+                    <i class="fas fa-calendar-day"></i>
+                </div>
+            </div>
+            <a href="/Admin/LichHen" class="card-footer text-white text-decoration-none d-flex justify-content-between align-items-center bg-dark bg-opacity-25 border-0">
+                <span class="small">Xem chi tiết</span>
+                <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Thống kê Doanh Thu -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-success text-white h-100 shadow-sm border-0">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="text-uppercase fw-bold mb-2">Doanh Thu Tháng</h6>
+                    <h2 class="mb-0 fw-bold">@Model.DoanhThuThangNay.ToString("N0")đ</h2>
+                </div>
+                <div class="fs-1 opacity-50">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+            </div>
+            <a href="/Admin/ThongKe" class="card-footer text-white text-decoration-none d-flex justify-content-between align-items-center bg-dark bg-opacity-25 border-0">
+                <span class="small">Xem chi tiết</span>
+                <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Thống kê KTV -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-primary-teal text-white h-100 shadow-sm border-0">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="text-uppercase fw-bold mb-2">KTV Đang Rảnh</h6>
+                    <h2 class="mb-0 fw-bold">@Model.KTVRanhCount</h2>
+                </div>
+                <div class="fs-1 opacity-50">
+                    <i class="fas fa-user-nurse"></i>
+                </div>
+            </div>
+            <a href="/Admin/KyThuatVien" class="card-footer text-white text-decoration-none d-flex justify-content-between align-items-center bg-dark bg-opacity-25 border-0">
+                <span class="small">Xem chi tiết</span>
+                <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header bg-white">
+                <i class="fas fa-spa me-1 text-primary-teal"></i> Hướng dẫn nghiệp vụ
+            </div>
+            <div class="card-body">
+                <p>Chào mừng Admin! Dưới đây là luồng làm việc gợi ý:</p>
+                <ol>
+                    <li class="mb-2"><strong>Quản lý Dịch vụ & Phụ liệu:</strong> Khai báo kho và thiết lập dịch vụ mới tại menu <i class="fas fa-box-open"></i>. Đừng quên map định mức tiêu hao!</li>
+                    <li class="mb-2"><strong>Điều phối lịch hẹn:</strong> Kiểm tra mục <i class="fas fa-bell text-warning"></i> Chờ Xác Nhận. Gán KTV cho lịch khách hàng và chuyển sang <em>Đã xác nhận</em>.</li>
+                    <li class="mb-2"><strong>Quản lý KTV:</strong> Cập nhật trạng thái làm việc của KTV nếu có thay đổi đột xuất ở menu <i class="fas fa-user-nurse"></i>.</li>
+                    <li class="mb-2"><strong>Thu ngân & Hóa đơn:</strong> Thanh toán lịch hẹn đã xong. Nhớ in hóa đơn để khách hàng thấy rành mạch phụ liệu đã sử dụng! Hệ thống sẽ tự trừ kho và áp ưu đãi tự động.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

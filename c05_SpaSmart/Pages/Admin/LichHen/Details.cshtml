@@ -1,0 +1,197 @@
+@page
+@using c05_SpaSmart.Models.Enums
+@model c05_SpaSmart.Pages.Admin.LichHen.DetailsModel
+@{
+    ViewData["Title"] = "Xử Lý Lịch Hẹn #" + Model.LichHen.Id;
+}
+
+<div class="row">
+    <!-- Cột trái: Thông tin -->
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-file-invoice text-primary-teal me-2"></i>Chi tiết phiếu đặt lịch</h5>
+                <span class="badge fs-6 @(Model.LichHen.TrangThai == TrangThaiLichHen.DaThanhToan ? "bg-success" : (Model.LichHen.TrangThai == TrangThaiLichHen.ChoXacNhan ? "bg-warning text-dark" : "bg-primary"))">
+                    @Model.LichHen.TrangThai.ToString()
+                </span>
+            </div>
+            <div class="card-body p-4">
+                <div class="row mb-4">
+                    <div class="col-sm-6">
+                        <h6 class="fw-bold text-muted text-uppercase mb-3">Thông tin Khách Hàng</h6>
+                        <p class="mb-1"><i class="fas fa-user text-muted me-2"></i> <strong>@Model.LichHen.User?.FullName</strong></p>
+                        <p class="mb-1"><i class="fas fa-phone text-muted me-2"></i> @Model.LichHen.User?.PhoneNumber</p>
+                        <p class="mb-1"><i class="fas fa-star text-warning me-2"></i> Điểm tích lũy: @Model.LichHen.User?.DiemTichLuy điểm</p>
+                        @if (!string.IsNullOrEmpty(Model.LichHen.GhiChu))
+                        {
+                            <div class="alert alert-warning py-2 mt-3 mb-0">
+                                <i class="fas fa-exclamation-circle me-1"></i> <strong>Ghi chú:</strong> @Model.LichHen.GhiChu
+                            </div>
+                        }
+                    </div>
+                    <div class="col-sm-6 text-sm-end mt-4 mt-sm-0">
+                        <h6 class="fw-bold text-muted text-uppercase mb-3">Thông tin Lịch Hẹn</h6>
+                        <p class="mb-1">Mã Lịch: <strong>#@Model.LichHen.Id</strong></p>
+                        <p class="mb-1">Giờ khách đến: <strong><span class="text-primary-teal">@Model.LichHen.NgayGioDat.ToString("HH:mm")</span> ngày @Model.LichHen.NgayGioDat.ToString("dd/MM/yyyy")</strong></p>
+                        <p class="mb-1">
+                            KTV chỉ định: 
+                            @if(Model.LichHen.KyThuatVien != null)
+                            {
+                                <strong>@Model.LichHen.KyThuatVien.HoTen</strong>
+                            }
+                            else
+                            {
+                                <span class="fst-italic text-muted">Bất kỳ</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>STT</th>
+                                <th>Gói Dịch Vụ Đã Đặt</th>
+                                <th class="text-end">Thành Tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int i = 1;}
+                            @foreach (var item in Model.LichHen.ChiTietLichHens!)
+                            {
+                                <tr>
+                                    <td class="text-center">@(i++)</td>
+                                    <td class="fw-bold">
+                                        @item.GoiDichVu.TenDichVu
+                                        <div class="small fw-normal text-muted">@item.GoiDichVu.ThoiLuongPhut phút</div>
+                                    </td>
+                                    <td class="text-end text-primary-teal fw-bold">@item.GiaTienLucDat.ToString("N0")đ</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot class="bg-light">
+                            <tr>
+                                <td colspan="2" class="text-end fw-bold">Tổng tiền (Tạm tính):</td>
+                                <td class="text-end fw-bold text-danger fs-5">@Model.LichHen.TongTien.ToString("N0")đ</td>
+                            </tr>
+                            @if(Model.LichHen.TrangThai == TrangThaiLichHen.DaThanhToan)
+                            {
+                                <tr>
+                                    <td colspan="2" class="text-end text-success fw-bold">Ưu đãi (Giảm giá):</td>
+                                    <td class="text-end text-success fw-bold">-@Model.LichHen.TienGiamGia.ToString("N0")đ</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="text-end fw-bold fs-5">Khách Đã Thanh Toán:</td>
+                                    <td class="text-end fw-bold text-primary-teal fs-4">@Model.LichHen.TongThanhToan.ToString("N0")đ</td>
+                                </tr>
+                            }
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cột phải: Thao tác Xử lý nghiệp vụ -->
+    <div class="col-lg-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-cogs text-primary-teal me-2"></i>Bộ điều khiển quy trình</h5>
+            </div>
+            <div class="card-body p-4 text-center">
+                @if (Model.LichHen.TrangThai == TrangThaiLichHen.ChoXacNhan)
+                {
+                    <p class="text-muted small mb-3">Lịch đang chờ xác nhận. Lễ tân cần duyệt và gán KTV rảnh.</p>
+                    <form method="post" asp-page-handler="UpdateStatus">
+                        <input type="hidden" name="id" value="@Model.LichHen.Id" />
+                        <input type="hidden" name="actionType" value="DuyetLich" />
+                        
+                        @if(Model.LichHen.KyThuatVienId == null)
+                        {
+                            <div class="mb-3 text-start">
+                                <label class="form-label small fw-bold">Khách không chọn KTV. Vui lòng gán KTV:</label>
+                                <select name="selectedKtvId" class="form-select" asp-items="ViewBag.KtvRanh">
+                                    <option value="">-- Random KTV rảnh --</option>
+                                </select>
+                            </div>
+                        }
+                        
+                        <button type="submit" class="btn btn-primary w-100 mb-2 py-2 fw-bold"><i class="fas fa-check-circle me-1"></i> Chấp Nhận Duyệt Lịch</button>
+                    </form>
+                    <form method="post" asp-page-handler="UpdateStatus">
+                        <input type="hidden" name="id" value="@Model.LichHen.Id" />
+                        <input type="hidden" name="actionType" value="HuyLich" />
+                        <button type="submit" class="btn btn-outline-danger w-100 py-2"><i class="fas fa-times me-1"></i> Hủy Yêu Cầu</button>
+                    </form>
+                }
+                else if (Model.LichHen.TrangThai == TrangThaiLichHen.DaXacNhan)
+                {
+                    <p class="text-muted small mb-3">Khách đã đến Spa? Chuyển sang trạng thái phục vụ để khóa lịch KTV.</p>
+                    <form method="post" asp-page-handler="UpdateStatus">
+                        <input type="hidden" name="id" value="@Model.LichHen.Id" />
+                        <input type="hidden" name="actionType" value="PhucVu" />
+                        <button type="submit" class="btn btn-primary w-100 py-2 fw-bold"><i class="fas fa-hands me-1"></i> KTV Bắt Đầu Phục Vụ</button>
+                    </form>
+                }
+                else if (Model.LichHen.TrangThai == TrangThaiLichHen.DangPhucVu)
+                {
+                    <p class="text-muted small mb-3">KTV đang làm dịch vụ. Nhấn nút dưới khi xong.</p>
+                    <form method="post" asp-page-handler="UpdateStatus">
+                        <input type="hidden" name="id" value="@Model.LichHen.Id" />
+                        <input type="hidden" name="actionType" value="Xong" />
+                        <button type="submit" class="btn btn-warning text-dark w-100 py-2 fw-bold"><i class="fas fa-concierge-bell me-1"></i> Báo Cáo Đã Phục Vụ Xong</button>
+                    </form>
+                }
+                else if (Model.LichHen.TrangThai == TrangThaiLichHen.DaPhucVuXong)
+                {
+                    <div class="alert alert-info text-start small mb-3">
+                        <strong><i class="fas fa-box-open"></i> Phụ liệu sẽ bị trừ kho:</strong><br/>
+                        @if(Model.PhuLieuSuDungList.Any())
+                        {
+                            foreach(var pl in Model.PhuLieuSuDungList)
+                            {
+                                <div>@pl</div>
+                            }
+                        }
+                        else
+                        {
+                            <span>Không có phụ liệu thiết lập cho gói này.</span>
+                        }
+                    </div>
+                    @if (Model.LichHen.TongTien >= 2000000)
+                    {
+                        <div class="alert alert-success text-start small mb-3">
+                            <i class="fas fa-gift"></i> <strong>Ưu đãi:</strong> Đơn hàng >= 2.000.000đ sẽ tự động được giảm 10% khi thanh toán! (Theo QĐ02)
+                        </div>
+                    }
+
+                    <p class="text-muted small mb-3">Khách ra quầy thanh toán. Xác nhận để xuất hóa đơn.</p>
+                    <form method="post" asp-page-handler="UpdateStatus">
+                        <input type="hidden" name="id" value="@Model.LichHen.Id" />
+                        <input type="hidden" name="actionType" value="ThanhToan" />
+                        <button type="submit" class="btn btn-success w-100 py-3 fw-bold fs-5 shadow-sm"><i class="fas fa-print me-1"></i> Thanh Toán & In HĐ</button>
+                    </form>
+                }
+                else if (Model.LichHen.TrangThai == TrangThaiLichHen.DaThanhToan)
+                {
+                    <div class="text-success mb-3">
+                        <i class="fas fa-check-circle fa-4x mb-2"></i>
+                        <h5 class="fw-bold">Giao Dịch Hoàn Tất</h5>
+                    </div>
+                    <button class="btn btn-outline-primary w-100" onclick="window.print()"><i class="fas fa-print me-1"></i> In Lại Hóa Đơn</button>
+                }
+                else
+                {
+                    <div class="text-danger mb-3">
+                        <i class="fas fa-times-circle fa-4x mb-2"></i>
+                        <h5 class="fw-bold">Lịch Đã Hủy</h5>
+                    </div>
+                }
+
+                <hr class="my-4"/>
+                <a asp-page="./Index" class="text-decoration-none text-muted"><i class="fas fa-arrow-left me-1"></i> Quay lại danh sách</a>
+            </div>
+        </div>
+    </div>
+</div>

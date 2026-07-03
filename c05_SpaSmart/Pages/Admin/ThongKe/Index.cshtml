@@ -1,0 +1,71 @@
+@page
+@model c05_SpaSmart.Pages.Admin.ThongKe.IndexModel
+@{
+    ViewData["Title"] = "Thống Kê Lợi Nhuận (UC09)";
+}
+
+<div class="row g-4 mb-4">
+    <div class="col-12">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-chart-pie text-primary-teal me-2"></i>Báo Cáo Doanh Số Tháng @DateTime.Now.Month/@DateTime.Now.Year</h5>
+                <button class="btn btn-outline-success rounded-pill btn-sm" onclick="window.print()"><i class="fas fa-file-excel me-1"></i> Xuất Báo Cáo</button>
+            </div>
+            <div class="card-body p-4">
+                <div class="row text-center">
+                    <div class="col-md-4 mb-3 mb-md-0 border-end">
+                        <div class="text-muted text-uppercase fw-bold mb-2">Tổng Thu (Từ Khách)</div>
+                        <h2 class="text-success fw-bold">@Model.TongThuThangNay.ToString("N0")đ</h2>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0 border-end">
+                        <div class="text-muted text-uppercase fw-bold mb-2">Tổng Chi (Vận hành)</div>
+                        <h2 class="text-danger fw-bold">-@Model.TongChiThangNay.ToString("N0")đ</h2>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-muted text-uppercase fw-bold mb-2">Lợi Nhuận Thực Tế (BR07)</div>
+                        <h1 class="text-primary-teal fw-bold">@Model.LoiNhuanThangNay.ToString("N0")đ</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-12">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-history text-primary-teal me-2"></i>Lũy Kế Toàn Thời Gian</h5>
+            </div>
+            <div class="card-body p-4">
+                <!-- Mô phỏng Biểu đồ bằng Progress Bar -->
+                @{
+                    decimal total = Model.TongThuTatCa + Model.TongChiTatCa;
+                    decimal percentThu = total > 0 ? (Model.TongThuTatCa / total) * 100 : 0;
+                    decimal percentChi = total > 0 ? (Model.TongChiTatCa / total) * 100 : 0;
+                }
+                
+                <h6 class="fw-bold mb-2">Tỷ trọng Thu / Chi</h6>
+                <div class="progress mb-4" style="height: 30px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: @percentThu%" aria-valuenow="@percentThu" aria-valuemin="0" aria-valuemax="100">THU @Math.Round(percentThu)%</div>
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: @percentChi%" aria-valuenow="@percentChi" aria-valuemin="0" aria-valuemax="100">CHI @Math.Round(percentChi)%</div>
+                </div>
+
+                <ul class="list-group list-group-flush border-0">
+                    <li class="list-group-item d-flex justify-content-between align-items-center px-0 border-0 mb-2 bg-transparent">
+                        <span class="fw-medium"><i class="fas fa-circle text-success me-2"></i>Tổng doanh thu vào</span>
+                        <span class="fw-bold fs-5">@Model.TongThuTatCa.ToString("N0")đ</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center px-0 border-0 mb-2 bg-transparent">
+                        <span class="fw-medium"><i class="fas fa-circle text-danger me-2"></i>Tổng chi phí ra</span>
+                        <span class="fw-bold fs-5">-@Model.TongChiTatCa.ToString("N0")đ</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center px-0 border-top pt-3 bg-transparent">
+                        <span class="fw-bold text-uppercase">TỔNG LỢI NHUẬN KHỐI</span>
+                        <span class="fw-bold fs-4 text-primary-teal">@Model.LoiNhuanTatCa.ToString("N0")đ</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

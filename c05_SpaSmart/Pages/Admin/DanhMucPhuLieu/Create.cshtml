@@ -1,0 +1,52 @@
+@page
+@model c05_SpaSmart.Pages.Admin.DanhMucPhuLieu.CreateModel
+@{
+    ViewData["Title"] = "Gắn Định Mức Phụ Liệu";
+}
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-link text-primary-teal me-2"></i>Map phụ liệu với dịch vụ Spa (UC03)</h5>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="DanhMucPhuLieu.DichVuId" class="form-label fw-bold">Chọn Dịch Vụ Spa <span class="text-danger">*</span></label>
+                        <select asp-for="DanhMucPhuLieu.DichVuId" class="form-select form-select-lg" asp-items="ViewBag.DichVuId">
+                            <option value="">-- Lựa chọn dịch vụ --</option>
+                        </select>
+                        <span asp-validation-for="DanhMucPhuLieu.DichVuId" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="DanhMucPhuLieu.PhuLieuId" class="form-label fw-bold">Chọn Phụ Liệu Tương Ứng <span class="text-danger">*</span></label>
+                        <select asp-for="DanhMucPhuLieu.PhuLieuId" class="form-select form-select-lg" asp-items="ViewBag.PhuLieuId">
+                            <option value="">-- Lựa chọn phụ liệu --</option>
+                        </select>
+                        <span asp-validation-for="DanhMucPhuLieu.PhuLieuId" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="DanhMucPhuLieu.SoLuongTieuHao" class="form-label fw-bold">Định Mức Tiêu Hao (Cho 1 lần làm) <span class="text-danger">*</span></label>
+                        <input asp-for="DanhMucPhuLieu.SoLuongTieuHao" type="number" class="form-control form-control-lg" placeholder="Ví dụ: 1" />
+                        <div class="form-text">Hệ thống sẽ dựa vào định mức này để tự động trừ kho khi thanh toán hóa đơn.</div>
+                        <span asp-validation-for="DanhMucPhuLieu.SoLuongTieuHao" class="text-danger small"></span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <a asp-page="/Admin/PhuLieu/Index" class="btn btn-outline-secondary px-4 rounded-pill">Quay lại</a>
+                        <button type="submit" class="btn btn-primary px-5 rounded-pill"><i class="fas fa-save me-2"></i> Lưu Định Mức</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

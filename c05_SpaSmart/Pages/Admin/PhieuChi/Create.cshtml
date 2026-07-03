@@ -1,0 +1,49 @@
+@page
+@model c05_SpaSmart.Pages.Admin.PhieuChi.CreateModel
+@{
+    ViewData["Title"] = "Lập Phiếu Chi Mới";
+}
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-file-invoice-dollar text-primary-teal me-2"></i>Tạo Phiếu Xuất Quỹ (UC08)</h5>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="PhieuChi.LyDoChi" class="form-label fw-bold">Hạng mục chi tiêu / Lý do chi <span class="text-danger">*</span></label>
+                        <input asp-for="PhieuChi.LyDoChi" class="form-control form-control-lg" placeholder="Ví dụ: Nhập dược liệu, tiền điện, trả lương KTV..." />
+                        <span asp-validation-for="PhieuChi.LyDoChi" class="text-danger small"></span>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label asp-for="PhieuChi.SoTien" class="form-label fw-bold text-danger">Số Tiền Xuất (VNĐ) <span class="text-danger">*</span></label>
+                            <input asp-for="PhieuChi.SoTien" type="number" step="1000" class="form-control form-control-lg" />
+                            <span asp-validation-for="PhieuChi.SoTien" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="PhieuChi.AnhChungTu" class="form-label fw-bold">Link Ảnh Chứng Từ (Hóa đơn mua hàng)</label>
+                            <input asp-for="PhieuChi.AnhChungTu" class="form-control form-control-lg" placeholder="Ví dụ: https://link-anh-hoa-don.jpg" />
+                            <span asp-validation-for="PhieuChi.AnhChungTu" class="text-danger small"></span>
+                            <div class="form-text small">BR09: Phiếu chi > 5tr bắt buộc phải có chứng từ!</div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <a asp-page="Index" class="btn btn-outline-secondary px-4 rounded-pill">Quay lại</a>
+                        <button type="submit" class="btn btn-primary px-5 rounded-pill"><i class="fas fa-save me-2"></i> Lưu Phiếu Chi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
