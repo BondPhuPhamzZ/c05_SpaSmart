@@ -11,7 +11,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Danh sách Phiếu Tính Tiền</h6>
-            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createModal"><i class="fas fa-plus"></i> Lập Phiếu (POS)</button>
+            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createModal"><i class="fas fa-plus"></i> Lập Phiếu</button>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -49,12 +49,12 @@
     </div>
 </div>
 
-<!-- POS Create Modal -->
+<!-- Phiếu tính tiền Create Modal -->
 <div class="modal fade" id="createModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content" style="border-radius: 0;">
             <div class="modal-header">
-                <h5 class="modal-title">Lập Phiếu Tính Tiền (POS)</h5>
+                <h5 class="modal-title">Lập Phiếu Tính Tiền</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form method="post" asp-page-handler="Create">
