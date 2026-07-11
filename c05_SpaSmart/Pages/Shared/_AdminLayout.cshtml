@@ -62,15 +62,33 @@
             color: var(--admin-sidebar-text);
             display: flex;
             flex-direction: column;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             position: sticky;
             top: 0;
             height: 100vh;
             overflow-y: auto;
             flex-shrink: 0;
+            z-index: 1040;
         }
-        .offcanvas-md {
-            width: 280px;
+        @@media (max-width: 768px) {
+            .sidebar { 
+                position: fixed;
+                left: -250px;
+            }
+            .sidebar.mobile-show {
+                left: 0;
+            }
+        }
+        /* Overlay for mobile */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1039;
+        }
+        .sidebar-overlay.mobile-show {
+            display: block;
         }
         .sidebar-header {
             padding: 20px;
@@ -141,14 +159,14 @@
 </head>
 <body>
     <div class="admin-wrapper">
-        <!-- Sidebar Offcanvas for Mobile -->
-        <div class="offcanvas-md offcanvas-start sidebar bg-dark" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel">
-            <div class="offcanvas-header d-md-none border-bottom border-secondary">
-                <h5 class="offcanvas-title text-primary" id="sidebarOffcanvasLabel"><i class="fas fa-leaf"></i> SpaSmart</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#sidebarOffcanvas" aria-label="Close"></button>
-            </div>
-            <div class="sidebar-header d-none d-md-block">
-                <i class="fas fa-leaf"></i> SpaSmart
+        <!-- Mobile Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebarMenu">
+            <div class="sidebar-header d-flex justify-content-between align-items-center">
+                <span><i class="fas fa-leaf"></i> SpaSmart</span>
+                <button type="button" class="btn-close btn-close-white d-md-none" id="closeSidebarBtn" aria-label="Close"></button>
             </div>
             <div class="p-3 text-center border-bottom border-secondary mb-3">
                 <img src="https://ui-avatars.com/api/?name=Admin&background=20c997&color=fff" class="rounded-circle mb-2" width="60" alt="Admin">
@@ -182,14 +200,14 @@
                     </a>
                 </li>
             </ul>
-        </div>
+        </nav>
 
         <!-- Main Content -->
         <div class="main-content">
             <!-- Topbar -->
             <header class="topbar">
                 <h4 class="mb-0 text-dark fw-bold">@ViewData["Title"]</h4>
-                <button class="btn btn-primary d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas">
+                <button class="btn btn-primary d-md-none" type="button" id="openSidebarBtn">
                     <i class="fas fa-bars"></i>
                 </button>
             </header>
@@ -219,6 +237,23 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebar = document.getElementById('sidebarMenu');
+            const overlay = document.getElementById('sidebarOverlay');
+            const openBtn = document.getElementById('openSidebarBtn');
+            const closeBtn = document.getElementById('closeSidebarBtn');
+
+            function toggleSidebar() {
+                sidebar.classList.toggle('mobile-show');
+                overlay.classList.toggle('mobile-show');
+            }
+
+            if (openBtn) openBtn.addEventListener('click', toggleSidebar);
+            if (closeBtn) closeBtn.addEventListener('click', toggleSidebar);
+            if (overlay) overlay.addEventListener('click', toggleSidebar);
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
