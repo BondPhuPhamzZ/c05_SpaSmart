@@ -1,0 +1,50 @@
+@page
+@model c05_SpaSmart.Pages.PhieuTinhTien.CreateModel
+@{
+    ViewData["Title"] = "T?o Hóa Ðon";
+}
+
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">L?p Phi?u Tính Ti?n (POS)</h1>
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label asp-for="PhieuTinhTien.TenKhachHang" class="control-label"></label>
+                        <input asp-for="PhieuTinhTien.TenKhachHang" class="form-control" />
+                        <span asp-validation-for="PhieuTinhTien.TenKhachHang" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label asp-for="PhieuTinhTien.SoDienThoai" class="control-label"></label>
+                        <input asp-for="PhieuTinhTien.SoDienThoai" class="form-control" />
+                        <span asp-validation-for="PhieuTinhTien.SoDienThoai" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label asp-for="PhieuTinhTien.TenKtv" class="control-label">Tên KTV</label>
+                        <input asp-for="PhieuTinhTien.TenKtv" class="form-control" />
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label asp-for="PhieuTinhTien.HinhThucThanhToan" class="control-label">Hình th?c TT</label>
+                        <select asp-for="PhieuTinhTien.HinhThucThanhToan" class="form-control">
+                            <option value="Ti?n m?t">Ti?n m?t</option>
+                            <option value="Chuy?n kho?n">Chuy?n kho?n</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label asp-for="PhieuTinhTien.TongTien" class="control-label">T?ng ti?n (VNÐ)</label>
+                        <input asp-for="PhieuTinhTien.TongTien" class="form-control" type="number" />
+                    </div>
+                </div>
+                
+                <div class="form-group mt-3">
+                    <input type="submit" value="Thanh toán & Luu" class="btn btn-success" />
+                    <a asp-page="Index" class="btn btn-secondary">Quay l?i</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+@page
+@model c05_SpaSmart.Pages.PhieuTinhTien.IndexModel
+@{
+    ViewData["Title"] = "Qu?n lý Hóa Ðon (Tính Ti?n)";
+}
+
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Qu?n lý Phi?u Tính Ti?n</h1>
+    <p class="mb-4">Phân h? Tính ti?n và L?ch s? hóa don (Viên d?m nh?n).</p>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách Hóa Ðon</h6>
+            <a asp-page="Create" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> T?o Hóa Ðon M?i (Tính Ti?n)</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Khách Hàng</th>
+                            <th>SÐT</th>
+                            <th>Ngày TT</th>
+                            <th>T?ng Ti?n (VNÐ)</th>
+                            <th>Tr?ng Thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.PhieuTinhTiens)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.TenKhachHang</td>
+                                <td>@item.SoDienThoai</td>
+                                <td>@item.NgayThanhToan.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>@item.TongTien.ToString("N0")</td>
+                                <td><span class="badge badge-success">@item.TrangThai</span></td>
+                                <td>
+                                    <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Chi ti?t</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
