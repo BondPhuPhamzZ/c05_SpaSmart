@@ -21,7 +21,7 @@ namespace c05_SpaSmart.Pages.PhieuTinhTien
         }
 
         [BindProperty]
-        public c05_SpaSmart.Models.PhieuTinhTien PhieuTinhTien { get; set; } = default!;
+        public Models.PhieuTinhTien PhieuTinhTien { get; set; } = default!;
 
         public async Task<IActionResult> OnPostAsync()
         {

@@ -13,7 +13,7 @@ namespace c05_SpaSmart.Pages.PhieuTinhTien
             _context = context;
         }
 
-        public IList<c05_SpaSmart.Models.PhieuTinhTien> PhieuTinhTiens { get;set; } = default!;
+        public IList<Models.PhieuTinhTien> PhieuTinhTiens { get;set; } = default!;
 
         public async Task OnGetAsync()
         {

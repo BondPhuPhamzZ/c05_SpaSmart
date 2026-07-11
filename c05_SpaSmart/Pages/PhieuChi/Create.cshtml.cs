@@ -21,7 +21,7 @@ namespace c05_SpaSmart.Pages.PhieuChi
         }
 
         [BindProperty]
-        public c05_SpaSmart.Models.PhieuChi PhieuChi { get; set; } = default!;
+        public Models.PhieuChi PhieuChi { get; set; } = default!;
 
         public async Task<IActionResult> OnPostAsync()
         {

@@ -14,7 +14,7 @@ namespace c05_SpaSmart.Pages.DanhMucDichVu
             _context = context;
         }
 
-        public IList<c05_SpaSmart.Models.DanhMucDichVu> DanhMucDichVus { get;set; } = default!;
+        public IList<Models.DanhMucDichVu> DanhMucDichVus { get;set; } = default!;
 
         public async Task OnGetAsync()
         {

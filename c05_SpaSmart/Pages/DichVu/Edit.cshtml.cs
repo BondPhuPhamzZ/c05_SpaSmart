@@ -16,7 +16,7 @@ namespace c05_SpaSmart.Pages.DichVu
         }
 
         [BindProperty]
-        public c05_SpaSmart.Models.DichVu DichVu { get; set; } = default!;
+        public Models.DichVu DichVu { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

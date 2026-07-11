@@ -16,7 +16,7 @@ namespace c05_SpaSmart.Pages.PhieuChi
             _context = context;
         }
 
-        public IList<c05_SpaSmart.Models.PhieuChi> PhieuChis { get;set; } = default!;
+        public IList<Models.PhieuChi> PhieuChis { get;set; } = default!;
 
         public async Task OnGetAsync()
         {

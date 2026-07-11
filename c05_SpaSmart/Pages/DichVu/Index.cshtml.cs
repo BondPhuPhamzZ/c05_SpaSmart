@@ -14,7 +14,7 @@ namespace c05_SpaSmart.Pages.DichVu
             _context = context;
         }
 
-        public IList<c05_SpaSmart.Models.DichVu> DichVus { get;set; } = default!;
+        public IList<Models.DichVu> DichVus { get;set; } = default!;
 
         public async Task OnGetAsync()
         {

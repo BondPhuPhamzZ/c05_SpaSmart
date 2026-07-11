@@ -15,7 +15,7 @@ namespace c05_SpaSmart.Pages.DanhMucDichVu
         }
 
         [BindProperty]
-        public c05_SpaSmart.Models.DanhMucDichVu DanhMuc { get; set; } = default!;
+        public Models.DanhMucDichVu DanhMuc { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
