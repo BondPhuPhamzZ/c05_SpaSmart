@@ -26,7 +26,6 @@
         .btn-primary:hover, .btn-primary:active, .btn-primary:focus { background-color: #1aa179 !important; border-color: #1aa179 !important; color: #fff !important; }
         .btn-outline-primary { color: var(--bs-primary); border-color: var(--bs-primary); }
         .btn-outline-primary:hover, .btn-outline-primary:active, .btn-outline-primary:focus { background-color: var(--bs-primary) !important; border-color: var(--bs-primary) !important; color: #fff !important; }
-        .badge.bg-primary { background-color: var(--bs-primary) !important; }
         .text-primary-teal { color: var(--bs-primary) !important; }
         .bg-primary-teal { background-color: var(--bs-primary) !important; }
         .form-control:focus, .form-select:focus { border-color: var(--bs-primary); box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25); }
@@ -102,7 +101,7 @@
         .card {
             border: none;
             box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-            border-radius: 0.5rem;
+            border-radius: 0;
         }
         .card-header {
             background-color: #fff;
@@ -121,43 +120,33 @@
             </div>
             <div class="p-3 text-center border-bottom border-secondary mb-3">
                 <img src="https://ui-avatars.com/api/?name=Admin&background=20c997&color=fff" class="rounded-circle mb-2" width="60" alt="Admin">
-                <div class="fw-bold">@User.Identity?.Name</div>
+                <div class="fw-bold">Quản trị viên</div>
                 <small class="text-muted">Administrator</small>
             </div>
             <ul class="sidebar-menu">
                 <li>
-                    <a href="/Admin/Dashboard" class="@(ViewContext.RouteData.Values["page"]?.ToString()?.StartsWith("/Admin/Dashboard") == true ? "active" : "")">
-                        <i class="fas fa-tachometer-alt"></i> Dashboard Tổng Quát
+                    <a href="/ThongKe/Index" class="@(ViewContext.RouteData.Values["page"]?.ToString()?.StartsWith("/ThongKe") == true ? "active" : "")">
+                        <i class="fas fa-chart-line"></i> Bảng Thống Kê
                     </a>
                 </li>
                 <li>
-                    <a href="/Admin/GoiDichVu" class="@(ViewContext.RouteData.Values["page"]?.ToString()?.StartsWith("/Admin/GoiDichVu") == true ? "active" : "")">
-                        <i class="fas fa-spa"></i> Quản lý Gói Dịch Vụ
+                    <a href="/DichVu/Index" class="@(ViewContext.RouteData.Values["page"]?.ToString()?.StartsWith("/DichVu") == true ? "active" : "")">
+                        <i class="fas fa-spa"></i> Dịch Vụ / Phụ Liệu
                     </a>
                 </li>
                 <li>
-                    <a href="/Admin/PhuLieu" class="@(ViewContext.RouteData.Values["page"]?.ToString()?.StartsWith("/Admin/PhuLieu") == true ? "active" : "")">
-                        <i class="fas fa-box-open"></i> Quản lý Phụ Liệu
+                    <a href="/DanhMucDichVu/Index" class="@(ViewContext.RouteData.Values["page"]?.ToString()?.StartsWith("/DanhMucDichVu") == true ? "active" : "")">
+                        <i class="fas fa-list"></i> Danh Mục
                     </a>
                 </li>
                 <li>
-                    <a href="/Admin/KyThuatVien" class="@(ViewContext.RouteData.Values["page"]?.ToString()?.StartsWith("/Admin/KyThuatVien") == true ? "active" : "")">
-                        <i class="fas fa-user-nurse"></i> Quản lý Lịch KTV
+                    <a href="/PhieuTinhTien/Index" class="@(ViewContext.RouteData.Values["page"]?.ToString()?.StartsWith("/PhieuTinhTien") == true ? "active" : "")">
+                        <i class="fas fa-file-invoice"></i> Phiếu Tính Tiền (POS)
                     </a>
                 </li>
                 <li>
-                    <a href="/Admin/LichHen" class="@(ViewContext.RouteData.Values["page"]?.ToString()?.StartsWith("/Admin/LichHen") == true ? "active" : "")">
-                        <i class="fas fa-calendar-check"></i> Quản lý Lịch Hẹn & HĐ
-                    </a>
-                </li>
-                <li>
-                    <a href="/Admin/PhieuChi" class="@(ViewContext.RouteData.Values["page"]?.ToString()?.StartsWith("/Admin/PhieuChi") == true ? "active" : "")">
-                        <i class="fas fa-file-invoice-dollar"></i> Quản lý Chi Tiêu
-                    </a>
-                </li>
-                <li>
-                    <a href="/Admin/ThongKe" class="@(ViewContext.RouteData.Values["page"]?.ToString()?.StartsWith("/Admin/ThongKe") == true ? "active" : "")">
-                        <i class="fas fa-chart-line"></i> Thống Kê Doanh Số
+                    <a href="/PhieuChi/Index" class="@(ViewContext.RouteData.Values["page"]?.ToString()?.StartsWith("/PhieuChi") == true ? "active" : "")">
+                        <i class="fas fa-file-invoice-dollar"></i> Quản lý Phiếu Chi
                     </a>
                 </li>
             </ul>
@@ -169,8 +158,7 @@
             <header class="topbar">
                 <h4 class="mb-0 text-dark fw-bold">@ViewData["Title"]</h4>
                 <div class="d-flex align-items-center">
-                    <a href="/" class="btn btn-outline-secondary btn-sm me-3" target="_blank">Xem Trang Khách</a>
-                    <a href="/Auth/Logout" class="btn btn-outline-danger btn-sm"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</a>
+                    <a href="/" class="btn btn-outline-secondary btn-sm" target="_blank"><i class="fas fa-globe"></i> Xem Trang Khách</a>
                 </div>
             </header>
 

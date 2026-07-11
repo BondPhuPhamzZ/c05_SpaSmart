@@ -32,8 +32,8 @@
                             <tr>
                                 <td class="font-weight-bold">@item.TenDichVu</td>
                                 <td>
-                                    @if(item.Loai == 1) { <span class="badge badge-success px-2 py-1">Dịch vụ</span> }
-                                    else { <span class="badge badge-info px-2 py-1">Phụ liệu</span> }
+                                    @if(item.Loai == 1) { <span class="text-success font-weight-bold">Dịch vụ</span> }
+                                    else { <span class="text-primary font-weight-bold">Phụ liệu</span> }
                                 </td>
                                 <td>@(item.DanhMuc?.TenDanhMuc ?? "Không có")</td>
                                 <td class="text-right">@item.GiaTien.ToString("N0")</td>

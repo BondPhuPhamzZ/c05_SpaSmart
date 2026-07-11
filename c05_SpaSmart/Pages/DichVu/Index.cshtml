@@ -11,7 +11,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Danh sách Sản phẩm / Dịch vụ</h6>
-            <a asp-page="Create" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Thêm mới</a>
+            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createModal"><i class="fas fa-plus"></i> Thêm mới</button>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -32,14 +32,14 @@
                             <tr>
                                 <td>@item.TenDichVu</td>
                                 <td>
-                                    @if(item.Loai == 1) { <span class="badge badge-success">Dịch vụ</span> }
-                                    else { <span class="badge badge-info">Phụ liệu</span> }
+                                    @if(item.Loai == 1) { <span class="text-success font-weight-bold">Dịch vụ</span> }
+                                    else { <span class="text-primary font-weight-bold">Phụ liệu</span> }
                                 </td>
                                 <td>@(item.DanhMuc?.TenDanhMuc ?? "")</td>
                                 <td>@item.GiaTien.ToString("N0")</td>
                                 <td>@item.GiamGia.ToString("N0")</td>
                                 <td>
-                                    <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                    <button class="btn btn-warning btn-sm" onclick="openEditModal(@item.Id, '@item.TenDichVu', @item.Loai, @item.DanhMucId, @item.GiaTien, @item.GiamGia, '@item.MoTa')"><i class="fas fa-edit"></i></button>
                                     <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" style="display:inline;">
                                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Xác nhận xóa?');"><i class="fas fa-trash"></i></button>
                                     </form>
@@ -52,3 +52,122 @@
         </div>
     </div>
 </div>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="border-radius: 0;">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm Sản phẩm / Dịch vụ</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" asp-page-handler="Create">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Tên Sản Phẩm / Dịch Vụ</label>
+                        <input name="TenDichVu" class="form-control" required />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Phân Loại</label>
+                            <select name="Loai" class="form-control">
+                                <option value="1">Dịch vụ</option>
+                                <option value="2">Phụ liệu</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Danh Mục</label>
+                            <select name="DanhMucId" class="form-control" asp-items="ViewBag.DanhMucId"></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Giá Tiền</label>
+                            <input name="GiaTien" class="form-control" type="number" required />
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Giảm Giá</label>
+                            <input name="GiamGia" class="form-control" type="number" value="0" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Mô Tả</label>
+                        <textarea name="MoTa" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Lưu lại</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="border-radius: 0;">
+            <div class="modal-header">
+                <h5 class="modal-title">Chỉnh sửa Sản phẩm / Dịch vụ</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" asp-page-handler="Edit">
+                <input type="hidden" name="Id" id="edit-id" />
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Tên Sản Phẩm / Dịch Vụ</label>
+                        <input name="TenDichVu" id="edit-ten" class="form-control" required />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Phân Loại</label>
+                            <select name="Loai" id="edit-loai" class="form-control">
+                                <option value="1">Dịch vụ</option>
+                                <option value="2">Phụ liệu</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Danh Mục</label>
+                            <select name="DanhMucId" id="edit-danhmuc" class="form-control" asp-items="ViewBag.DanhMucId"></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Giá Tiền</label>
+                            <input name="GiaTien" id="edit-gia" class="form-control" type="number" required />
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Giảm Giá</label>
+                            <input name="GiamGia" id="edit-giamgia" class="form-control" type="number" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Mô Tả</label>
+                        <textarea name="MoTa" id="edit-mota" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-warning">Cập nhật</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function openEditModal(id, ten, loai, danhmuc, gia, giamgia, mota) {
+            document.getElementById('edit-id').value = id;
+            document.getElementById('edit-ten').value = ten;
+            document.getElementById('edit-loai').value = loai;
+            document.getElementById('edit-danhmuc').value = danhmuc;
+            document.getElementById('edit-gia').value = gia;
+            document.getElementById('edit-giamgia').value = giamgia;
+            document.getElementById('edit-mota').value = mota;
+            var myModal = new bootstrap.Modal(document.getElementById('editModal'));
+            myModal.show();
+        }
+    </script>
+}

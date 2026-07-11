@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using c05_SpaSmart.Models;
-using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace c05_SpaSmart.Pages.DanhMucDichVu
 {
@@ -14,7 +16,7 @@ namespace c05_SpaSmart.Pages.DanhMucDichVu
             _context = context;
         }
 
-        public IList<Models.DanhMucDichVu> DanhMucDichVus { get;set; } = default!;
+        public IList<c05_SpaSmart.Models.DanhMucDichVu> DanhMucDichVus { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
@@ -24,13 +26,40 @@ namespace c05_SpaSmart.Pages.DanhMucDichVu
             }
         }
 
+        public async Task<IActionResult> OnPostCreateAsync(string TenDanhMuc, string MoTa)
+        {
+            var dm = new c05_SpaSmart.Models.DanhMucDichVu
+            {
+                TenDanhMuc = TenDanhMuc,
+                MoTa = MoTa
+            };
+            _context.DanhMucDichVus.Add(dm);
+            await _context.SaveChangesAsync();
+            TempData["SuccessMessage"] = "Thêm danh mục thành công!";
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostEditAsync(int Id, string TenDanhMuc, string MoTa)
+        {
+            var dm = await _context.DanhMucDichVus.FindAsync(Id);
+            if (dm != null)
+            {
+                dm.TenDanhMuc = TenDanhMuc;
+                dm.MoTa = MoTa;
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Cập nhật danh mục thành công!";
+            }
+            return RedirectToPage();
+        }
+
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
-            var danhmuc = await _context.DanhMucDichVus.FindAsync(id);
-            if (danhmuc != null)
+            var dm = await _context.DanhMucDichVus.FindAsync(id);
+            if (dm != null)
             {
-                _context.DanhMucDichVus.Remove(danhmuc);
+                _context.DanhMucDichVus.Remove(dm);
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Đã xoá danh mục!";
             }
             return RedirectToPage();
         }
