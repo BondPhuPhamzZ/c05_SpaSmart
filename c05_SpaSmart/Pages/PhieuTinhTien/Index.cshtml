@@ -1,27 +1,26 @@
 @page
 @model c05_SpaSmart.Pages.PhieuTinhTien.IndexModel
 @{
-    ViewData["Title"] = "Quản lý Hóa Đơn (Tính Tiền)";
+    ViewData["Title"] = "Quản lý Phiếu Tính Tiền";
 }
 
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">Quản lý Phiếu Tính Tiền</h1>
-    <p class="mb-4">Phân hệ Tính tiền và Lịch sử hóa đơn (Viên đảm nhận).</p>
+    <h1 class="h3 mb-2 text-gray-800">Quản lý Hóa Đơn / Phiếu Tính Tiền</h1>
+    <p class="mb-4">Phân hệ theo dõi toàn bộ lịch sử thanh toán (Viên đảm nhận).</p>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
-            <h6 class="m-0 font-weight-bold text-primary">Danh sách Hóa Đơn</h6>
-            <a asp-page="Create" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tạo Hóa Đơn Mới (Tính Tiền)</a>
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách Phiếu Tính Tiền</h6>
+            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createModal"><i class="fas fa-plus"></i> Lập Phiếu (POS)</button>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Khách Hàng</th>
-                            <th>SĐT</th>
-                            <th>Ngày TT</th>
+                            <th>Điện Thoại</th>
+                            <th>Ngày Lập</th>
                             <th>Tổng Tiền (VNĐ)</th>
                             <th>Trạng Thái</th>
                             <th>Thao tác</th>
@@ -31,20 +30,69 @@
                         @foreach (var item in Model.PhieuTinhTiens)
                         {
                             <tr>
-                                <td>@item.Id</td>
                                 <td>@item.TenKhachHang</td>
                                 <td>@item.SoDienThoai</td>
                                 <td>@item.NgayThanhToan.ToString("dd/MM/yyyy HH:mm")</td>
                                 <td>@item.TongTien.ToString("N0")</td>
                                 <td><span class="text-success font-weight-bold">@item.TrangThai</span></td>
                                 <td>
-                                    <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Chi tiết</a>
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" style="display:inline;">
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa hóa đơn này?');"><i class="fas fa-trash"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- POS Create Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="border-radius: 0;">
+            <div class="modal-header">
+                <h5 class="modal-title">Lập Phiếu Tính Tiền (POS)</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" asp-page-handler="Create">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label>Tên Khách Hàng</label>
+                            <input name="TenKhachHang" class="form-control" required />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>Số Điện Thoại</label>
+                            <input name="SoDienThoai" class="form-control" required />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>Tên KTV</label>
+                            <input name="TenKtv" class="form-control" />
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-3">
+                        <div class="col-md-6 form-group">
+                            <label>Hình thức TT</label>
+                            <select name="HinhThucThanhToan" class="form-control">
+                                <option value="Tiền mặt">Tiền mặt</option>
+                                <option value="Chuyển khoản">Chuyển khoản</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Tổng tiền (VNĐ)</label>
+                            <input name="TongTien" class="form-control" type="number" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success">Thanh toán & Lưu</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

@@ -16,9 +16,6 @@ namespace c05_SpaSmart
 
             // 2. Add Razor Pages
             builder.Services.AddRazorPages();
-            
-            // 3. Add MVC for public pages
-            builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
@@ -33,9 +30,6 @@ namespace c05_SpaSmart
             app.UseRouting();
 
             app.MapRazorPages();
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }

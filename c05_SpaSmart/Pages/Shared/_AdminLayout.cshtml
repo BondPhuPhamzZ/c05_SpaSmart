@@ -30,6 +30,11 @@
         .bg-primary-teal { background-color: var(--bs-primary) !important; }
         .form-control:focus, .form-select:focus { border-color: var(--bs-primary); box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25); }
         .form-check-input:checked { background-color: var(--bs-primary); border-color: var(--bs-primary); }
+        
+        /* Table and Icon global styling */
+        .table th, .table td { vertical-align: top !important; text-align: left !important; }
+        i.fas, i.far, i.fab { color: var(--bs-primary); }
+        .btn i.fas, .btn i.far, .btn i.fab { color: inherit; } /* Keep icon color inside buttons */
 
         /* Admin Layout specific */
         .admin-wrapper {
@@ -43,6 +48,9 @@
             display: flex;
             flex-direction: column;
             transition: all 0.3s;
+        }
+        @@media (max-width: 768px) {
+            .sidebar { display: none; }
         }
         .sidebar-header {
             padding: 20px;
@@ -157,9 +165,9 @@
             <!-- Topbar -->
             <header class="topbar">
                 <h4 class="mb-0 text-dark fw-bold">@ViewData["Title"]</h4>
-                <div class="d-flex align-items-center">
-                    <a href="/" class="btn btn-outline-secondary btn-sm" target="_blank"><i class="fas fa-globe"></i> Xem Trang Khách</a>
-                </div>
+                <button class="btn btn-primary d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas">
+                    <i class="fas fa-bars"></i>
+                </button>
             </header>
 
             <!-- Page Content -->
