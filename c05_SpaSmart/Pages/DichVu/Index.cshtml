@@ -1,29 +1,29 @@
 @page
 @model c05_SpaSmart.Pages.DichVu.IndexModel
 @{
-    ViewData["Title"] = "Qu?n l� D?ch v? / Ph? li?u";
+    ViewData["Title"] = "Quản lý Dịch vụ / Phụ liệu";
 }
 
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">Qu?n l� S?n ph?m / D?ch v?</h1>
-    <p class="mb-4">Ph�n h? qu?n l� to�n b? D?ch v? v� Ph? li?u (Ph� d?m nh?n).</p>
+    <h1 class="h3 mb-2 text-gray-800">Quản lý Sản phẩm / Dịch vụ</h1>
+    <p class="mb-4">Phân hệ quản lý toàn bộ Dịch vụ và Phụ liệu (Phú đảm nhận).</p>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
-            <h6 class="m-0 font-weight-bold text-primary">Danh s�ch S?n ph?m / D?ch v?</h6>
-            <a asp-page="Create" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Th�m m?i</a>
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách Sản phẩm / Dịch vụ</h6>
+            <a asp-page="Create" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Thêm mới</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>T�n</th>
-                            <th>Lo?i</th>
-                            <th>Danh M?c</th>
-                            <th>Gi� (VN�)</th>
-                            <th>Gi?m Gi�</th>
-                            <th>Thao t�c</th>
+                            <th>Tên</th>
+                            <th>Loại</th>
+                            <th>Danh Mục</th>
+                            <th>Giá (VNĐ)</th>
+                            <th>Giảm Giá</th>
+                            <th>Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,8 +32,8 @@
                             <tr>
                                 <td>@item.TenDichVu</td>
                                 <td>
-                                    @if(item.Loai == 1) { <span class="badge badge-success">D?ch v?</span> }
-                                    else { <span class="badge badge-info">Ph? li?u</span> }
+                                    @if(item.Loai == 1) { <span class="badge badge-success">Dịch vụ</span> }
+                                    else { <span class="badge badge-info">Phụ liệu</span> }
                                 </td>
                                 <td>@(item.DanhMuc?.TenDanhMuc ?? "")</td>
                                 <td>@item.GiaTien.ToString("N0")</td>
@@ -41,7 +41,7 @@
                                 <td>
                                     <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                                     <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" style="display:inline;">
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('X�c nh?n x�a?');"><i class="fas fa-trash"></i></button>
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Xác nhận xóa?');"><i class="fas fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>

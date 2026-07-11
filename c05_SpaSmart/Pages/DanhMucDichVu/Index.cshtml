@@ -1,17 +1,17 @@
 @page
 @model c05_SpaSmart.Pages.DanhMucDichVu.IndexModel
 @{
-    ViewData["Title"] = "Qu?n l� Danh M?c";
+    ViewData["Title"] = "Quản lý Danh Mục";
 }
 
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">Qu?n l� Danh M?c</h1>
-    <p class="mb-4">Ph�n h? qu?n l� danh m?c d?ch v? v� ph? li?u (Th?nh d?m nh?n).</p>
+    <h1 class="h3 mb-2 text-gray-800">Quản lý Danh Mục</h1>
+    <p class="mb-4">Phân hệ quản lý danh mục dịch vụ và phụ liệu (Thịnh đảm nhận).</p>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
-            <h6 class="m-0 font-weight-bold text-primary">Danh s�ch Danh M?c</h6>
-            <a asp-page="Create" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Th�m m?i</a>
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách Danh Mục</h6>
+            <a asp-page="Create" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Thêm mới</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -19,9 +19,9 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>T�n Danh M?c</th>
-                            <th>M� T?</th>
-                            <th>Thao t�c</th>
+                            <th>Tên Danh Mục</th>
+                            <th>Mô Tả</th>
+                            <th>Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,7 +34,7 @@
                                 <td>
                                     <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                                     <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" style="display:inline;">
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('B?n c� ch?c ch?n mu?n x�a?');"><i class="fas fa-trash"></i></button>
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa?');"><i class="fas fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>

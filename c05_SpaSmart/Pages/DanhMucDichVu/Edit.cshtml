@@ -1,11 +1,11 @@
 @page
 @model c05_SpaSmart.Pages.DanhMucDichVu.EditModel
 @{
-    ViewData["Title"] = "S?a Danh M?c";
+    ViewData["Title"] = "Sửa Danh Mục";
 }
 
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">Ch?nh s?a Danh M?c</h1>
+    <h1 class="h3 mb-2 text-gray-800">Chỉnh sửa Danh Mục</h1>
     <div class="card shadow mb-4">
         <div class="card-body">
             <form method="post">
@@ -21,8 +21,8 @@
                     <span asp-validation-for="DanhMuc.MoTa" class="text-danger"></span>
                 </div>
                 <div class="form-group mt-3">
-                    <input type="submit" value="C?p nh?t" class="btn btn-primary" />
-                    <a asp-page="./Index" class="btn btn-secondary">Quay l?i</a>
+                    <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                    <a asp-page="./Index" class="btn btn-secondary">Quay lại</a>
                 </div>
             </form>
         </div>

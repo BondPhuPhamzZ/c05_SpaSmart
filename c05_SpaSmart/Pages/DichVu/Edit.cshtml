@@ -1,11 +1,11 @@
 @page
 @model c05_SpaSmart.Pages.DichVu.EditModel
 @{
-    ViewData["Title"] = "Ch?nh s?a";
+    ViewData["Title"] = "Chỉnh sửa";
 }
 
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">C?p nh?t S?n ph?m / D?ch v?</h1>
+    <h1 class="h3 mb-2 text-gray-800">Cập nhật Sản phẩm / Dịch vụ</h1>
     <div class="card shadow mb-4">
         <div class="card-body">
             <form method="post">
@@ -17,15 +17,15 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label asp-for="DichVu.Loai" class="control-label">Ph�n Lo?i</label>
+                        <label asp-for="DichVu.Loai" class="control-label">Phân Loại</label>
                         <select asp-for="DichVu.Loai" class="form-control">
-                            <option value="1">D?ch v?</option>
-                            <option value="2">Ph? li?u</option>
+                            <option value="1">Dịch vụ</option>
+                            <option value="2">Phụ liệu</option>
                         </select>
                         <span asp-validation-for="DichVu.Loai" class="text-danger"></span>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label asp-for="DichVu.DanhMucId" class="control-label">Danh M?c</label>
+                        <label asp-for="DichVu.DanhMucId" class="control-label">Danh Mục</label>
                         <select asp-for="DichVu.DanhMucId" class="form-control" asp-items="ViewBag.DanhMucId"></select>
                     </div>
                 </div>
@@ -47,8 +47,8 @@
                     <span asp-validation-for="DichVu.MoTa" class="text-danger"></span>
                 </div>
                 <div class="form-group mt-3">
-                    <input type="submit" value="C?p nh?t" class="btn btn-primary" />
-                    <a asp-page="./Index" class="btn btn-secondary">Quay l?i</a>
+                    <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                    <a asp-page="./Index" class="btn btn-secondary">Quay lại</a>
                 </div>
             </form>
         </div>
