@@ -33,8 +33,23 @@
         
         /* Table and Icon global styling */
         .table th, .table td { vertical-align: top !important; text-align: left !important; }
+        .table { margin-bottom: 0; }
+        .table-responsive { padding: 1rem; }
         i.fas, i.far, i.fab { color: var(--bs-primary); }
         .btn i.fas, .btn i.far, .btn i.fab { color: inherit; } /* Keep icon color inside buttons */
+        
+        .icon-circle {
+            height: 3rem;
+            width: 3rem;
+            border-radius: 20%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(var(--bs-primary-rgb), 0.1);
+        }
+        .icon-circle i {
+            font-size: 1.5rem;
+        }
 
         /* Admin Layout specific */
         .admin-wrapper {
@@ -43,14 +58,19 @@
         }
         .sidebar {
             width: 250px;
-            background-color: var(--admin-sidebar-bg);
+            background-color: var(--admin-sidebar-bg) !important;
             color: var(--admin-sidebar-text);
             display: flex;
             flex-direction: column;
             transition: all 0.3s;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0;
         }
-        @@media (max-width: 768px) {
-            .sidebar { display: none; }
+        .offcanvas-md {
+            width: 280px;
         }
         .sidebar-header {
             padding: 20px;
@@ -121,9 +141,13 @@
 </head>
 <body>
     <div class="admin-wrapper">
-        <!-- Sidebar -->
-        <nav class="sidebar">
-            <div class="sidebar-header">
+        <!-- Sidebar Offcanvas for Mobile -->
+        <div class="offcanvas-md offcanvas-start sidebar bg-dark" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel">
+            <div class="offcanvas-header d-md-none border-bottom border-secondary">
+                <h5 class="offcanvas-title text-primary" id="sidebarOffcanvasLabel"><i class="fas fa-leaf"></i> SpaSmart</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#sidebarOffcanvas" aria-label="Close"></button>
+            </div>
+            <div class="sidebar-header d-none d-md-block">
                 <i class="fas fa-leaf"></i> SpaSmart
             </div>
             <div class="p-3 text-center border-bottom border-secondary mb-3">
@@ -158,7 +182,7 @@
                     </a>
                 </li>
             </ul>
-        </nav>
+        </div>
 
         <!-- Main Content -->
         <div class="main-content">
