@@ -42,7 +42,6 @@ namespace c05_SpaSmart.Controllers
         {
             ViewBag.Services = await _context.GoiDichVus.ToListAsync();
             
-            // Lấy danh sách KTV (Tất cả, hoặc chỉ những người sẵn sàng. Ở đây load tất cả để khách chọn yêu thích)
             ViewBag.KTVs = await _context.KyThuatViens.ToListAsync();
 
             var model = new BookingViewModel();
