@@ -1,0 +1,48 @@
+@model IEnumerable<c05_SpaSmart.Models.DichVu>
+
+@{
+    ViewData["Title"] = "Trang Chủ";
+}
+
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 font-weight-bold text-primary">SpaSmart - Đánh Thức Vẻ Đẹp</h1>
+        <p class="lead">Chào mừng bạn đến với hệ thống dịch vụ chăm sóc sắc đẹp hàng đầu.</p>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Bảng Giá Dịch Vụ & Sản Phẩm</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" width="100%" cellspacing="0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Tên Dịch Vụ / Sản Phẩm</th>
+                            <th>Phân Loại</th>
+                            <th>Danh Mục</th>
+                            <th class="text-right">Giá Bán (VNĐ)</th>
+                            <th class="text-right text-success">Giảm Giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="font-weight-bold">@item.TenDichVu</td>
+                                <td>
+                                    @if(item.Loai == 1) { <span class="badge badge-success px-2 py-1">Dịch vụ</span> }
+                                    else { <span class="badge badge-info px-2 py-1">Phụ liệu</span> }
+                                </td>
+                                <td>@(item.DanhMuc?.TenDanhMuc ?? "Không có")</td>
+                                <td class="text-right">@item.GiaTien.ToString("N0")</td>
+                                <td class="text-right text-success">-@item.GiamGia.ToString("N0")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
