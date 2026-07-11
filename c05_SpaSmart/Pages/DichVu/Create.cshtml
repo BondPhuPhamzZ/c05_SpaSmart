@@ -1,0 +1,55 @@
+@page
+@model c05_SpaSmart.Pages.DichVu.CreateModel
+@{
+    ViewData["Title"] = "Thêm m?i";
+}
+
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Thêm S?n ph?m / D?ch v?</h1>
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="DichVu.TenDichVu" class="control-label"></label>
+                    <input asp-for="DichVu.TenDichVu" class="form-control" />
+                    <span asp-validation-for="DichVu.TenDichVu" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label asp-for="DichVu.Loai" class="control-label">Phân Lo?i</label>
+                        <select asp-for="DichVu.Loai" class="form-control">
+                            <option value="1">D?ch v?</option>
+                            <option value="2">Ph? li?u</option>
+                        </select>
+                        <span asp-validation-for="DichVu.Loai" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label asp-for="DichVu.DanhMucId" class="control-label">Danh M?c</label>
+                        <select asp-for="DichVu.DanhMucId" class="form-control" asp-items="ViewBag.DanhMucId"></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label asp-for="DichVu.GiaTien" class="control-label"></label>
+                        <input asp-for="DichVu.GiaTien" class="form-control" type="number" />
+                        <span asp-validation-for="DichVu.GiaTien" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label asp-for="DichVu.GiamGia" class="control-label"></label>
+                        <input asp-for="DichVu.GiamGia" class="form-control" type="number" />
+                        <span asp-validation-for="DichVu.GiamGia" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DichVu.MoTa" class="control-label"></label>
+                    <textarea asp-for="DichVu.MoTa" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="DichVu.MoTa" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3">
+                    <input type="submit" value="Luu l?i" class="btn btn-primary" />
+                    <a asp-page="Index" class="btn btn-secondary">Quay l?i</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
