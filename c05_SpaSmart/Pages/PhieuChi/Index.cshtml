@@ -1,0 +1,42 @@
+@page
+@model c05_SpaSmart.Pages.PhieuChi.IndexModel
+@{
+    ViewData["Title"] = "Lịch sử Phiếu Chi";
+}
+
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Quản lý Phiếu Chi</h1>
+    <p class="mb-4">Phân hệ theo dõi chi phí (Kiệt đảm nhận).</p>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách Phiếu Chi</h6>
+            <a asp-page="Create" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tạo Phiếu Chi Mới</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Ngày Chi</th>
+                            <th>Lý do</th>
+                            <th>Người Chi</th>
+                            <th>Số Tiền (VNĐ)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.PhieuChis)
+                        {
+                            <tr>
+                                <td>@item.NgayChi.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>@item.LyDoChi</td>
+                                <td>@item.NguoiChi</td>
+                                <td class="text-danger font-weight-bold">-@item.SoTien.ToString("N0")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
